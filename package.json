@@ -46,6 +46,7 @@
     "@tronweb3/tronwallet-adapter-react-hooks": "^1.1.9",
     "@tronweb3/tronwallet-adapter-react-ui": "^1.1.10",
     "@tronweb3/tronwallet-adapters": "^1.2.7",
+    "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
