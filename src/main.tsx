@@ -5,10 +5,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "./lib/i18n/LanguageContext";
 import { Toaster } from "react-hot-toast";
-import { Buffer } from 'buffer';
 
 const basename = import.meta.env.BASE_URL;
-window.Buffer = window.Buffer || Buffer
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
