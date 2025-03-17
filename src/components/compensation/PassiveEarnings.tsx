@@ -34,19 +34,19 @@ const PassiveEarnings = () => {
               <p className="text-3xl font-bold mb-2">5%</p>
               <p className="text-sm text-gray-500">
                 {language === "es"
-                  ? "Retorno semanal fijo en todos los paquetes activos, pagado automáticamente cada 7 días (10% de comisión aplicada)"
-                  : "Fixed weekly return on all active packages, paid automatically every 7 days (10% fee applied)"}
+                  ? "Retorno semanal fijo en todos los paquetes activos, pagado automáticamente cada 7 días"
+                  : "Fixed weekly return on all active packages, paid automatically every 7 days"}
               </p>
               <div className="mt-2 p-2 bg-[#FF0000]/10 rounded-lg text-xs text-gray-600">
                 <p className="font-medium">
                   {language === "es"
-                    ? "Nota sobre la comisión del 10%"
-                    : "Note on 10% fee"}
+                    ? "Nota sobre el 0,5% adicional"
+                    : "Note on additional 0.5%"}
                 </p>
                 <p>
                   {language === "es"
-                    ? "La comisión del 10% se distribuye a través de la red siguiendo el mismo sistema de niveles que las comisiones regulares."
-                    : "The 10% fee is distributed through the network following the same level system as regular commissions."}
+                    ? "El 0,5% adicional se distribuye a través de la red siguiendo el mismo sistema de niveles que las comisiones regulares."
+                    : "The additional 0.5% is distributed through the network following the same level system as regular commissions."}
                 </p>
               </div>
             </div>

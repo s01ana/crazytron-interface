@@ -273,7 +273,7 @@ const EarningsCalculator = () => {
       (sum, amount) => sum + amount * 0.05,
       0,
     );
-    const feeAmount = weeklyYield * 0.1; // 10% fee
+    const feeAmount = weeklyYield * 0; // 10% fee
     return weeklyYield - feeAmount; // Return amount after fee
   };
 
@@ -418,13 +418,13 @@ const EarningsCalculator = () => {
           )}
 
           <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            {/* <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
               <h3 className="font-semibold">Select Your Packages (Max 5)</h3>
               <div className="text-sm text-gray-500 bg-[#FF0000]/5 px-3 py-1 rounded-md border border-[#FF0000]/20">
                 <span className="font-medium">Note:</span> 10% fee applied to
                 all payouts
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-wrap gap-2">
               {[50, 100, 200, 500, 1000].map((amount) => (
                 <Button
@@ -558,21 +558,21 @@ const EarningsCalculator = () => {
                   <span className="font-semibold text-green-600 text-lg mt-1">
                     {(calculateWeeklyPassiveEarnings() / 7).toFixed(2)} USDT
                   </span>
-                  <span className="text-xs text-gray-500">After 10% fee</span>
+                  <span className="text-xs text-gray-500">From all packages</span>
                 </div>
                 <div className="flex flex-col p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm text-gray-600">Weekly Passive</span>
                   <span className="font-semibold text-green-600 text-lg mt-1">
                     {calculateWeeklyPassiveEarnings().toFixed(2)} USDT
                   </span>
-                  <span className="text-xs text-gray-500">After 10% fee</span>
+                  <span className="text-xs text-gray-500">From all packages</span>
                 </div>
                 <div className="flex flex-col p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm text-gray-600">Monthly Passive</span>
                   <span className="font-semibold text-green-600 text-lg mt-1">
                     {calculateMonthlyPassiveEarnings().toFixed(2)} USDT
                   </span>
-                  <span className="text-xs text-gray-500">After 10% fee</span>
+                  <span className="text-xs text-gray-500">From all packages</span>
                 </div>
               </div>
             </div>
