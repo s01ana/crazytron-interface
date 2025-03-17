@@ -1,4 +1,5 @@
-const webpack = require('webpack');
+// const webpack = require('webpack');
+import webpack from 'webpack'
 
 module.exports = {
   // ...
