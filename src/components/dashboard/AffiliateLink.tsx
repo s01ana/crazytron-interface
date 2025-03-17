@@ -6,6 +6,7 @@ import { Link, Copy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import toast, { Toaster } from "react-hot-toast";
+import { MAIN_URL } from "@/config/constants";
 
 interface AffiliateLinkProps {
   affiliateId?: string;
@@ -14,7 +15,7 @@ interface AffiliateLinkProps {
 const AffiliateLink = () => {
   const { t } = useLanguage();
   const { address } = useWallet()
-  const affiliateLink = `https://crazytron.com/?ref=${address}`;
+  const affiliateLink = `${MAIN_URL}?ref=${address}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(affiliateLink);
