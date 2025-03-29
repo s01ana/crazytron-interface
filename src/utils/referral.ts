@@ -4,7 +4,7 @@ import { atom, useAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { useLocation } from 'react-router'
 
-const referrerAtom = atomWithStorage<string>('crazytron:referrer', '')
+const referrerAtom = atomWithStorage<string>('crazytron:referrer', ZERO_ADDRESS)
 
 const setReferrerAtom = atom(
   (get) => {

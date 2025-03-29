@@ -33,6 +33,8 @@ const PackagesPage = () => {
   const { address } = useWallet();
   const { data } = usePackages(address);
 
+  const activeLevel = data ? data.activeLevel : -1
+
   const userLevels = data?.packs.map((p) => p.level);
 
   // let remainingDays = 30 - Math.floor((Date.now()/1000 - userLastPaymentTime) / (24 * 3600))
@@ -264,16 +266,16 @@ const PackagesPage = () => {
                     ))}
                   </div>
 
-                  {!userLevels?.includes(i) && (
+                  {activeLevel < i && (
                     <Button
                       className={`w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white`}
                       onClick={async () =>
                         // console.log(`Selected ${pkg.amount} USDT package`)
                         await handleBuy(pkg)
                       }
-                      disabled={userLevels?.length !== i || pending}
+                      disabled={activeLevel + 1 < i || pending}
                     >
-                      {userLevels?.length !== i
+                      {activeLevel + 1 < i
                         ? language === "es"
                           ? `Desbloquear en ${pkg.requiredAmount} USDT`
                           : `Unlock at ${pkg.requiredAmount} USDT`
@@ -283,7 +285,9 @@ const PackagesPage = () => {
                     </Button>
                   )}
 
-                  {userLevels?.includes(i) && (
+
+
+                  {activeLevel >= i && (
                     <Button
                       className={`w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white`}
                       onClick={async () => {

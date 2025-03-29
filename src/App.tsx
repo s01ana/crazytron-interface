@@ -1,17 +1,16 @@
-import React, { Suspense, useEffect } from "react";
-import { useRoutes, Routes, Route, useParams, useLocation, useNavigate } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import "@tronweb3/tronwallet-adapter-react-ui/style.css";
-import { tronWeb } from '@/tronweb';
 import TronWalletProvider from "./TronWalletProvider";
 import { RefreshContextProvider } from "./contexts/RefreshContext";
 import { useReferrerAtom } from "./utils/referral";
-import crazyAbi from './abi/crazytron.json'
-import { CRAZYTRON_ADDRESS, ZERO_ADDRESS } from "./config/constants";
+import { MASTER_ADDRESS, ZERO_ADDRESS } from "./config/constants";
 import { useReferrer } from "./hooks/useReferrals";
 
 // Lazy load components
 const Home = React.lazy(() => import("./components/home"));
+const InvalidPage = React.lazy(() => import("./components/invalid"));
 const PackagesPage = React.lazy(
   () => import("./components/packages/PackagesPage"),
 );
@@ -39,7 +38,6 @@ const ErrorFallback = ({ error }: { error: Error }) => (
 );
 
 function App() {
-  const navigate = useNavigate();
   const [referrer, setReferrer] = useReferrerAtom()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -51,36 +49,8 @@ function App() {
 
   const {referrer: ref_} = useReferrer(referrer)
 
-  useEffect(() => {
-    console.log(ref_)
-    if (ref_ === ZERO_ADDRESS)
-      navigate('/packages')
-  }, [ref_])
-
-  // useEffect(() => {
-  //   console.log(referrer)
-  //   const fetchReferrer = async (address: string) => {
-  //     try {
-  //       const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS)
-  //       const _userReferrer = await crazyContract.userReferrer(address).call({ from: address })
-  //       if (tronWeb.address.fromHex(_userReferrer) !== ZERO_ADDRESS) {
-  //         console.log(tronWeb.address.fromHex(_userReferrer))
-  //         setReferrer()
-  //       } else {
-  //         navigate('/packages')
-  //       }
-  //     } catch {
-  //       navigate('/packages')
-  //     }
-  //   }
-
-  //   if (!!ref && ref !== referrer) {
-  //     console.log(ref)
-  //     fetchReferrer(ref)
-  //   } else {
-  //     navigate('/packages')
-  //   }
-  // }, [referrer])
+  if (ref_ === ZERO_ADDRESS && referrer !== MASTER_ADDRESS)
+    return <InvalidPage />
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>

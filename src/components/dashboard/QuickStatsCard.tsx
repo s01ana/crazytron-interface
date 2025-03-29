@@ -10,19 +10,20 @@ import {
   Calculator,
 } from "lucide-react";
 import { useQuickStats } from "@/hooks/useQuickStats";
+import { useNetworks } from "@/hooks/useNetworks";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 
 interface QuickStatsCardProps {
   totalEarnings?: number;
   activeReferrals?: number;
 }
 
-const QuickStatsCard = ({
-  totalEarnings = 1250.5,
-  activeReferrals = 12,
-}: QuickStatsCardProps) => {
+const QuickStatsCard = () => {
   const { t } = useLanguage();
 
-  const { earnings, profit, networkEarnings, distribution, referrals } = useQuickStats()
+  const {address} = useWallet()
+
+  const { data } = useNetworks(address)
 
   return (
     <Card className="w-full bg-white shadow-lg hover:shadow-[#FF0000]/10 transition-all duration-300 border-[#FF0000]/20">
@@ -39,7 +40,7 @@ const QuickStatsCard = ({
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">
-                {new BigNumber(earnings).plus(networkEarnings).toFixed(2)} USDT
+                {new BigNumber(data?.totalPackPaid).plus(data?.totalNetworkPaid).div(1e6).toFixed(2)} USDT
               </p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.totalEarnings")}
@@ -53,7 +54,7 @@ const QuickStatsCard = ({
               <PiggyBank className="h-6 w-6 text-[#FF0000]" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{profit} USDT</p>
+              <p className="text-2xl font-bold text-gray-900">{data?.totalNetworkPaid / 1e6} USDT</p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.totalPassiveIncome")}
               </p>
@@ -80,7 +81,7 @@ const QuickStatsCard = ({
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">
-                {referrals}
+                {data?.networkSize}
               </p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.activeReferrals")}

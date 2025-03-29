@@ -102,7 +102,7 @@ export function useManage() {
 
         const params2 = [
           { type: "uint8", value: level },
-          { type: "address", value: "TA5t171S21YghWfXHRk5LcuPQ6RqCQXKix" },
+          { type: "address", value: referrer },
         ];
 
         const { transaction: tx2 } =
