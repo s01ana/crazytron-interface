@@ -10,9 +10,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useManage, useUserInfo } from "@/hooks/useContract";
+import { useManage } from "@/hooks/useContract";
 import { MONTH, TRONSCAN_URL, WEEK } from "@/config/constants";
 import toast, { ToastBar, Toaster } from "react-hot-toast";
+import { usePackages } from "@/hooks/usePackages";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 
 interface PackageInfo {
   amount: number;
@@ -27,15 +29,18 @@ interface PackageInfo {
 const PackagesPage = () => {
   const { t, language } = useLanguage();
 
-  const { onBuyPack, onClaim, onPayFee, pending } = useManage()
-  const { userLastPaymentTime, userPacks } = useUserInfo()
+  const { onBuyPack, onResetPack, onPayFee, pending } = useManage();
+  const { address } = useWallet();
+  const { data } = usePackages(address);
 
-  const userLevels = userPacks.map((p) => p.level)
+  const userLevels = data?.packs.map((p) => p.level);
 
   // let remainingDays = 30 - Math.floor((Date.now()/1000 - userLastPaymentTime) / (24 * 3600))
-  let remainingDays = Math.floor((MONTH - Date.now()/1000 + userLastPaymentTime) / 60)
+  let remainingDays = Math.floor(
+    (MONTH - Date.now() / 1000 + data?.lastPaymentTime) / 60
+  );
 
-  remainingDays = remainingDays > 0 ? remainingDays : 0
+  remainingDays = remainingDays > 0 ? remainingDays : 0;
 
   const packages: PackageInfo[] = [
     {
@@ -109,7 +114,7 @@ const PackagesPage = () => {
   ];
 
   const handleBuy = async (pkg: PackageInfo) => {
-    const result = await onBuyPack(packages.indexOf(pkg), pkg.amount)
+    const result = await onBuyPack(packages.indexOf(pkg), pkg.amount);
     if (result.result)
       toast.success(
         <div className="flex gap-1">
@@ -118,24 +123,24 @@ const PackagesPage = () => {
             <p className="text-green-500">View transaction</p>
           </a>
         </div>
-      )
-  }
+      );
+  };
 
-  const handleClaim = async (id: number) => {
-    const result = await onClaim(id)
+  const handleReset = async (pkg: PackageInfo) => {
+    const result = await onResetPack(packages.indexOf(pkg), pkg.amount);
     if (result.result)
       toast.success(
         <div className="flex gap-1">
-          <p>Successfully claimed.</p>
+          <p>Successfully re-purchased.</p>
           <a href={`${TRONSCAN_URL}transaction/${result.tx}`} target="_blink">
             <p className="text-green-500">View transaction</p>
           </a>
         </div>
-      )
-  }
+      );
+  };
 
   const handlePayFee = async () => {
-    const result = await onPayFee()
+    const result = await onPayFee();
     if (result && result.result) {
       toast.success(
         <div className="flex gap-1">
@@ -144,32 +149,28 @@ const PackagesPage = () => {
             <p className="text-green-500">View transaction</p>
           </a>
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <Toaster
-        position="top-right"
-      >
+      <Toaster position="top-right">
         {(t) => (
-    <ToastBar
-      toast={t}
-    >
-      {({ icon, message }) => (
-        <>
-          {icon}
-          {message}
-          {t.type !== 'loading' && (
-            <button onClick={() => toast.dismiss(t.id)}>✕</button>
-          )}
-        </>
-      )}
-      </ToastBar>
-  )}
-  </Toaster>
+          <ToastBar toast={t}>
+            {({ icon, message }) => (
+              <>
+                {icon}
+                {message}
+                {t.type !== "loading" && (
+                  <button onClick={() => toast.dismiss(t.id)}>✕</button>
+                )}
+              </>
+            )}
+          </ToastBar>
+        )}
+      </Toaster>
       <div className="pt-20 px-4 pb-8">
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="text-center space-y-2 mb-8">
@@ -263,50 +264,56 @@ const PackagesPage = () => {
                     ))}
                   </div>
 
-                  {!userLevels.includes(i) && <Button
-                    className={`w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white`}
-                    onClick={async () =>
-                      // console.log(`Selected ${pkg.amount} USDT package`)
-                      await handleBuy(pkg)
-                    }
-                    disabled={userLevels.length !== i || pending}
-                  >
-                    {userLevels.length !== i
-                      ? language === "es"
-                        ? `Desbloquear en ${pkg.requiredAmount} USDT`
-                        : `Unlock at ${pkg.requiredAmount} USDT`
-                      : language === "es"
+                  {!userLevels?.includes(i) && (
+                    <Button
+                      className={`w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white`}
+                      onClick={async () =>
+                        // console.log(`Selected ${pkg.amount} USDT package`)
+                        await handleBuy(pkg)
+                      }
+                      disabled={userLevels?.length !== i || pending}
+                    >
+                      {userLevels?.length !== i
+                        ? language === "es"
+                          ? `Desbloquear en ${pkg.requiredAmount} USDT`
+                          : `Unlock at ${pkg.requiredAmount} USDT`
+                        : language === "es"
                         ? "Seleccionar Paquete"
                         : "Select Package"}
-                  </Button>}
+                    </Button>
+                  )}
 
-                  {userLevels.includes(i) && <Button
-                    className={`w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white`}
-                    onClick={async () => {
-                        // console.log(`Selected ${pkg.amount} USDT package`)
-                        if (userPacks[i].totalPaid >= pkg.maxReturn * 1e6)
-                          await handleBuy(pkg)
-                        else
-                          await handleClaim(userPacks[i].id)
+                  {userLevels?.includes(i) && (
+                    <Button
+                      className={`w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white`}
+                      onClick={async () => {
+                        await handleReset(pkg);
+                      }}
+                      disabled={
+                        data?.packs[i].totalPaid < pkg.maxReturn * 1e6 ||
+                        pending
                       }
-                    }
-                    disabled={(userPacks[i].totalPaid < pkg.maxReturn * 1e6 && userPacks[i].lastPayoutTime + WEEK > Date.now() / 1000) || pending}
-                  >
-                    {userPacks[i].totalPaid >= pkg.maxReturn * 1e6
-                      ? language === "es"
+                    >
+                      {language === "es"
                         ? `Paquete de reinicio`
-                        : `Reset Package`
-                      : language === "es"
-                        ? "Reclamar recompensa"
-                        : "Claim reward"}
-                  </Button>}
+                        : `Reset Package`}
+                    </Button>
+                  )}
 
                   <div className="flex items-start gap-2 text-xs text-gray-500 mt-4">
                     <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                     <p>
                       {language === "es"
-                        ? `Máximo un paquete de cada tipo. Los retornos se pagan semanalmente.${pkg.amount >= 500 ? " Posicionamiento prioritario en la red." : ""}`
-                        : `Maximum one package of each type. Returns are paid weekly.${pkg.amount >= 500 ? " Priority network positioning." : ""}`}
+                        ? `Máximo un paquete de cada tipo. Los retornos se pagan semanalmente.${
+                            pkg.amount >= 500
+                              ? " Posicionamiento prioritario en la red."
+                              : ""
+                          }`
+                        : `Maximum one package of each type. Returns are paid weekly.${
+                            pkg.amount >= 500
+                              ? " Priority network positioning."
+                              : ""
+                          }`}
                     </p>
                   </div>
                 </CardContent>
@@ -329,12 +336,14 @@ const PackagesPage = () => {
                     {language === "es" ? "Tiempo Restante" : "Time Remaining"}
                   </span>
                   {/* <span className="text-sm font-medium">{remainingDays} days</span> */}
-                  <span className="text-sm font-medium">{remainingDays} minutes</span>
+                  <span className="text-sm font-medium">
+                    {remainingDays} minutes
+                  </span>
                 </div>
                 <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[#FF0000] transition-all duration-500"
-                    style={{ width: `${((remainingDays) / MONTH) * 100}%` }}
+                    style={{ width: `${((MONTH/60-remainingDays) / MONTH * 60) * 100}%` }}
                   />
                 </div>
               </div>
@@ -351,7 +360,9 @@ const PackagesPage = () => {
               <Button
                 className="w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white"
                 onClick={handlePayFee}
-                disabled={remainingDays !== 0 || pending || userPacks.length === 0}
+                disabled={
+                  remainingDays !== 0 || pending || data?.packs.length === 0
+                }
               >
                 {language === "es"
                   ? "Pagar Cuota (50 USDT)"

@@ -11,15 +11,17 @@ import { Users, ChevronRight, Trophy, Wallet } from "lucide-react";
 import NetworkTree from "./NetworkTree";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { useReferrals } from "@/hooks/useReferrals";
 import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import { useNetworks } from "@/hooks/useNetworks";
+import { addressElipse } from "@/utils/common";
 
 interface NetworkMember {
-  id: string;
-  username: string;
-  level: number;
-  package: number;
+  address: string;
+  activeLevel: number;
+  totalNetworkPaid: number;
+  networkSize: number;
+  networkLevel: number;
+  networkPackSize: number;
   children?: NetworkMember[];
 }
 
@@ -30,9 +32,8 @@ const NetworkPage = () => {
   const [memberHistory, setMemberHistory] = useState<NetworkMember[]>([]);
 
   const { address } = useWallet();
-  const [ wallet, setWallet ] = useState(address)
 
-  const {referrals, networkEarnings, networkLevel, network} = useNetworks()
+  const {data} = useNetworks(address)
 
   const handleMemberClick = (member: NetworkMember) => {
     setSelectedMember(member);
@@ -42,99 +43,6 @@ const NetworkPage = () => {
 
   const formatLevel = (level: number) => {
     return language === "es" ? `Nivel ${level}` : `Level ${level}`;
-  };
-
-  const networkData: NetworkMember = {
-    id: "1",
-    username: "You",
-    level: 4,
-    package: 500,
-    children: [
-      {
-        id: "2",
-        username: "CryptoKing",
-        level: 3,
-        package: 200,
-        children: [
-          {
-            id: "5",
-            username: "BitQueen",
-            level: 2,
-            package: 100,
-            children: [
-              {
-                id: "8",
-                username: "CryptoNewbie",
-                level: 1,
-                package: 50,
-              },
-              {
-                id: "9",
-                username: "BlockStarter",
-                level: 1,
-                package: 50,
-              },
-            ],
-          },
-          {
-            id: "6",
-            username: "ChainMaker",
-            level: 2,
-            package: 100,
-            children: [
-              {
-                id: "10",
-                username: "TronBeginner",
-                level: 1,
-                package: 50,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "3",
-        username: "BlockMaster",
-        level: 3,
-        package: 200,
-        children: [
-          {
-            id: "7",
-            username: "NodeRunner",
-            level: 2,
-            package: 100,
-            children: [
-              {
-                id: "11",
-                username: "CryptoLearner",
-                level: 1,
-                package: 50,
-              },
-              {
-                id: "12",
-                username: "ChainStudent",
-                level: 1,
-                package: 50,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "4",
-        username: "TronWarrior",
-        level: 3,
-        package: 200,
-        children: [
-          {
-            id: "13",
-            username: "BlockChampion",
-            level: 2,
-            package: 100,
-          },
-        ],
-      },
-    ],
   };
 
   return (
@@ -165,8 +73,8 @@ const NetworkPage = () => {
             </svg>
           </div>
           {/* Network Overview */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-            {/* <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+            <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
                   <div className="p-2 sm:p-3 rounded-full bg-[#FF0000]/10">
@@ -179,12 +87,12 @@ const NetworkPage = () => {
                         : "Total Network Size"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {language === "es" ? `12 Miembros` : "12 Members"}
+                      {language === "es" ? `${data?.networkSize} Miembros` : `${data?.networkSize} Members`}
                     </p>
                   </div>
                 </div>
               </CardContent>
-            </Card> */}
+            </Card>
 
             <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
@@ -197,7 +105,7 @@ const NetworkPage = () => {
                       {language === "es" ? "Nivel de Red" : "Network Level"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {networkLevel}
+                      {data?.networkLevel}
                     </p>
                   </div>
                 </div>
@@ -216,7 +124,7 @@ const NetworkPage = () => {
                         ? "Ganancias de Red"
                         : "Network Earnings"}
                     </p>
-                    <p className="text-lg sm:text-2xl font-bold">${networkEarnings}</p>
+                    <p className="text-lg sm:text-2xl font-bold">${data?.totalNetworkPaid / 1e6}</p>
                   </div>
                 </div>
               </CardContent>
@@ -235,7 +143,7 @@ const NetworkPage = () => {
                         : "Direct Referrals"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {language === "es" ? `${referrals} Miembros` : `${referrals} Members`}
+                      {language === "es" ? `${data?.children.length} Miembros` : `${data?.children.length} Members`}
                     </p>
                   </div>
                 </div>
@@ -245,10 +153,7 @@ const NetworkPage = () => {
 
           {/* Network Tree */}
           <NetworkTree
-            data={{
-              ...networkData,
-              level: networkData.level,
-            }}
+            data={data}
             onMemberClick={handleMemberClick}
           />
 
@@ -305,10 +210,10 @@ const NetworkPage = () => {
                     </div>
                     <div>
                       <p className="text-lg font-semibold">
-                        {selectedMember.username}
+                        {addressElipse(selectedMember.address)}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {formatLevel(selectedMember.level)}
+                        {formatLevel(selectedMember.networkLevel)}
                       </p>
                     </div>
                   </div>
@@ -321,7 +226,7 @@ const NetworkPage = () => {
                           : "Active Package"}
                       </p>
                       <p className="text-lg font-semibold">
-                        {selectedMember.package} USDT
+                        {selectedMember.networkPackSize} USDT
                       </p>
                     </div>
                     <div className="p-4 rounded-lg bg-gray-50">
@@ -329,7 +234,7 @@ const NetworkPage = () => {
                         {language === "es" ? "Tamaño del Equipo" : "Team Size"}
                       </p>
                       <p className="text-lg font-semibold">
-                        {selectedMember.children?.length || 0}{" "}
+                        {selectedMember.networkSize || 0}{" "}
                         {language === "es" ? "Miembros" : "Members"}
                       </p>
                     </div>
@@ -346,7 +251,7 @@ const NetworkPage = () => {
                         <div className="space-y-2">
                           {selectedMember.children.map((child) => (
                             <div
-                              key={child.id}
+                              key={child.address}
                               className="flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer"
                               onClick={() => {
                                 setSelectedMember(child);
@@ -357,10 +262,10 @@ const NetworkPage = () => {
                                 <Users className="w-5 h-5 text-gray-400" />
                                 <div>
                                   <p className="font-medium">
-                                    {child.username}
+                                    {addressElipse(child.address)}
                                   </p>
                                   <p className="text-sm text-gray-500">
-                                    {formatLevel(child.level)}
+                                    {formatLevel(child.networkLevel)}
                                   </p>
                                 </div>
                               </div>

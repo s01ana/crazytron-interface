@@ -1,10 +1,14 @@
 import React, { Suspense, useEffect } from "react";
-import { useRoutes, Routes, Route, useParams, useLocation } from "react-router-dom";
+import { useRoutes, Routes, Route, useParams, useLocation, useNavigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import "@tronweb3/tronwallet-adapter-react-ui/style.css";
+import { tronWeb } from '@/tronweb';
 import TronWalletProvider from "./TronWalletProvider";
 import { RefreshContextProvider } from "./contexts/RefreshContext";
 import { useReferrerAtom } from "./utils/referral";
+import crazyAbi from './abi/crazytron.json'
+import { CRAZYTRON_ADDRESS, ZERO_ADDRESS } from "./config/constants";
+import { useReferrer } from "./hooks/useReferrals";
 
 // Lazy load components
 const Home = React.lazy(() => import("./components/home"));
@@ -35,6 +39,7 @@ const ErrorFallback = ({ error }: { error: Error }) => (
 );
 
 function App() {
+  const navigate = useNavigate();
   const [referrer, setReferrer] = useReferrerAtom()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -44,6 +49,39 @@ function App() {
     setReferrer()
   }
 
+  const {referrer: ref_} = useReferrer(referrer)
+
+  useEffect(() => {
+    console.log(ref_)
+    if (ref_ === ZERO_ADDRESS)
+      navigate('/packages')
+  }, [ref_])
+
+  // useEffect(() => {
+  //   console.log(referrer)
+  //   const fetchReferrer = async (address: string) => {
+  //     try {
+  //       const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS)
+  //       const _userReferrer = await crazyContract.userReferrer(address).call({ from: address })
+  //       if (tronWeb.address.fromHex(_userReferrer) !== ZERO_ADDRESS) {
+  //         console.log(tronWeb.address.fromHex(_userReferrer))
+  //         setReferrer()
+  //       } else {
+  //         navigate('/packages')
+  //       }
+  //     } catch {
+  //       navigate('/packages')
+  //     }
+  //   }
+
+  //   if (!!ref && ref !== referrer) {
+  //     console.log(ref)
+  //     fetchReferrer(ref)
+  //   } else {
+  //     navigate('/packages')
+  //   }
+  // }, [referrer])
+
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<LoadingFallback />}>
@@ -52,7 +90,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/packages" element={<PackagesPage />} />
-              {/* <Route path="/network" element={<NetworkPage />} /> */}
+              <Route path="/network" element={<NetworkPage />} />
               <Route path="/compensation" element={<CompensationPage />} />
               {/* <Route path="/settings" element={<SettingsPage />} /> */}
             </Routes>

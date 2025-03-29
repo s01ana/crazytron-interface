@@ -1,4 +1,4 @@
-import { useBalances, useUserInfo } from "@/hooks/useContract";
+import { useBalances } from "@/hooks/useContract";
 import { useContractEvents } from "@/hooks/useContractEvents";
 import React from "react";
 

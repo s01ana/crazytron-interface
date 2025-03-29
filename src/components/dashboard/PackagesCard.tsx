@@ -3,8 +3,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Package, History } from "lucide-react";
 import { useNetworkProfit } from "@/hooks/useNetworkProfit";
-import { useUserInfo } from "@/hooks/useContract";
-import { MONTH } from "@/config/constants";
+import { INITIAL_AMOUNTS, MONTH } from "@/config/constants";
 
 interface Transaction {
   hash: string;
@@ -76,19 +75,27 @@ const allPackages: PackageInfo[] = [
   { id: "5", amount: 1000, levels: 10, totalEarned: 0 },
 ];
 
-const PackagesCard = () => {
+const PackagesCard = ({
+  lastPaymentTime,
+  packs,
+}: {
+  lastPaymentTime: number;
+  packs: any;
+}) => {
   const { t } = useLanguage();
-  const { userPacks, userLastPaymentTime } = useUserInfo()
+  // const { userPacks, userLastPaymentTime } = useUserInfo()
 
-  const {networkEarnings} = useNetworkProfit()
-  
-  const userLevels = userPacks.map((p) => p.level)
-  const totalProfit = userPacks.reduce((a, b) => a + b.amount * 3, 0)
-  const paidProfit = userPacks.reduce((a, b) => a + b.totalPaid, 0)
+  const { networkEarnings } = useNetworkProfit();
 
-  let remainingDays = Math.floor((MONTH - Date.now()/1000 + userLastPaymentTime) / 60)
+  const userLevels = packs?.map((p) => p.level);
+  const totalProfit = packs?.reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3, 0);
+  const paidProfit = packs?.reduce((a, b) => a + b.totalPaid, 0);
 
-  remainingDays = remainingDays > 0 ? remainingDays : 0
+  let remainingDays = Math.floor(
+    (MONTH - Date.now() / 1000 + lastPaymentTime) / 60
+  );
+
+  remainingDays = remainingDays > 0 ? remainingDays : 0;
 
   return (
     <Card className="w-full bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
@@ -105,10 +112,15 @@ const PackagesCard = () => {
               <span className="text-gray-500">
                 {t("dashboard.passiveUnrealizedProfits")}
               </span>
-              <span className="text-[#FF0000]">${paidProfit / 1e6} / ${totalProfit / 1e6}</span>
+              <span className="text-[#FF0000]">
+                ${paidProfit / 1e6} / ${totalProfit / 1e6}
+              </span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full bg-[#FF0000]" style={{ width: `${paidProfit/totalProfit*100}%` }} />
+              <div
+                className="h-full bg-[#FF0000]"
+                style={{ width: `${(paidProfit / totalProfit) * 100}%` }}
+              />
             </div>
           </div>
 
@@ -119,25 +131,33 @@ const PackagesCard = () => {
                   {t("dashboard.networkIncomeRenewal")}
                 </span>
                 <span className="text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
-                  {remainingDays} {t("dashboard.daysLeftShort").replace("days", 'minutes').replace("días", "minutos")}
+                  {remainingDays}{" "}
+                  {t("dashboard.daysLeftShort")
+                    .replace("days", "minutes")
+                    .replace("días", "minutos")}
                 </span>
               </div>
               <span className="text-[#FF0000]">${networkEarnings}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full bg-[#FF0000]" style={{ width: `${((remainingDays) / MONTH) * 100}%` }} />
+              <div
+                className="h-full bg-[#FF0000]"
+                style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }}
+              />
             </div>
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-3">
-          {allPackages.map((pkg, i) => {
+          {allPackages?.map((pkg, i) => {
             const maxEarnings = pkg.amount * 3; // 300% max return
-            const progress = (pkg.totalEarned / maxEarnings) * 100;
-
             return (
               <div
                 key={pkg.id}
-                className={`relative p-4 rounded-lg ${userLevels.includes(i) ? "border border-[#FF0000] bg-[#FF0000]/5" : "border border-gray-200"}`}
+                className={`relative p-4 rounded-lg ${
+                  userLevels?.includes(i)
+                    ? "border border-[#FF0000] bg-[#FF0000]/5"
+                    : "border border-gray-200"
+                }`}
               >
                 <div className="space-y-1">
                   <div className="flex justify-between items-start">
@@ -148,7 +168,7 @@ const PackagesCard = () => {
                         {t("dashboard.packageFeatures.networkLevels")}
                       </div>
                     </div>
-                    {userLevels.includes(i) && (
+                    {userLevels?.includes(i) && (
                       <div className="bg-[#FF0000] rounded-full p-1 w-5 h-5 flex items-center justify-center">
                         <svg
                           width="12"
@@ -174,17 +194,27 @@ const PackagesCard = () => {
                         {t("dashboard.progressTo300")}
                       </span>
                       <span className="text-[#FF0000]">
-                        {Math.round((userPacks[i]?.totalPaid ?? 0) * 100 / (3 * pkg.amount * 1e6))}%
+                        {Math.round(
+                          ((packs?.[i]?.totalPaid ?? 0) * 100) /
+                            (3 * pkg?.amount * 1e6)
+                        )}
+                        %
                       </span>
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-[#FF0000]"
-                        style={{ width: `${Math.round((userPacks[i]?.totalPaid ?? 0) * 100 / (3 * pkg.amount * 1e6))}%` }}
+                        style={{
+                          width: `${Math.round(
+                            ((packs?.[i]?.totalPaid ?? 0) * 100) /
+                              (3 * pkg?.amount * 1e6)
+                          )}%`,
+                        }}
                       />
                     </div>
                     <div className="text-xs text-gray-500">
-                      ${Math.round((userPacks[i]?.totalPaid ?? 0) * 100 / 1e6)} / ${maxEarnings} USDT
+                      ${((packs?.[i]?.totalPaid ?? 0)) / 1e6} /
+                      ${maxEarnings} USDT
                     </div>
                   </div>
                 </div>

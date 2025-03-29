@@ -5,19 +5,18 @@ import { CRAZYTRON_ADDRESS } from '../config/constants';
 import useRefresh from './useRefresh';
 import crazyAbi from '../abi/crazytron.json'
 
-export function useReferrals(address: string) {
+export function useReferrer(address: string) {
 	// const { address } = useWallet();
 	const { fastRefresh } = useRefresh()
 
-	const [referrals, setReferrals] = useState([]);
+	const [referrer, setReferrer] = useState<string>('');
 
 	useEffect(() => {
 		const fetchUserInfo = async () => {
 				try {
 					const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS)
-          const _userReferrals = await crazyContract.getUserReferrals(address).call({ from: address })
-          setReferrals(_userReferrals.referrals)
-          console.log('referrals::', _userReferrals.referrals)
+          const _userReferrer = await crazyContract.userReferrer(address).call({ from: address })
+          setReferrer(tronWeb.address.fromHex(_userReferrer))
 				} catch (error) {
 						// console.log('debug fetch allowance error::', error)
 				}
@@ -29,6 +28,6 @@ export function useReferrals(address: string) {
 	}, [fastRefresh, address])
 
 	return {
-    referrals
+    referrer
 	};
 }

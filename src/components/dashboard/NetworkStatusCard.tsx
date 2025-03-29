@@ -2,38 +2,27 @@ import React from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Network, Timer } from "lucide-react";
-import { useUserInfo } from "@/hooks/useContract";
 import { useNetworkProfit } from "@/hooks/useNetworkProfit";
 import { MONTH } from "@/config/constants";
 
 interface NetworkStatusCardProps {
-  position?: string;
-  timeUntilRenewal?: number; // in seconds
-  isRenewalNeeded?: boolean;
+  networkLevel: number;
+  userLastPaymentTime: number; // in seconds
+  totalNetworkPaid: number;
   onRenew?: () => void;
 }
 
 const NetworkStatusCard = ({
-  position = "Level 4",
-  timeUntilRenewal = 432000, // 5 days in seconds
-  isRenewalNeeded = false,
+  networkLevel,
+  userLastPaymentTime = 0,
+  totalNetworkPaid = 0,
   onRenew = () => console.log("Renewal clicked"),
 }: NetworkStatusCardProps) => {
   const { t, language } = useLanguage();
 
-  const { userPacks, userLastPaymentTime } = useUserInfo()
-  
-  const {networkEarnings} = useNetworkProfit()
-
   let remainingDays = Math.floor((MONTH - Date.now()/1000 + userLastPaymentTime) / 60)
   
   remainingDays = remainingDays > 0 ? remainingDays : 0
-
-  const userLevel = `Level ${userPacks.length > 0 ? userPacks.length * 2 + (3 - userPacks.length > 0 ? 3 - userPacks.length : 0) : 0}`
-
-  // Convert seconds to days/hours for display
-  const days = Math.floor(timeUntilRenewal / (24 * 60 * 60));
-  const hours = Math.floor((timeUntilRenewal % (24 * 60 * 60)) / (60 * 60));
 
   return (
     <Card className="w-full h-[200px] bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
@@ -51,9 +40,7 @@ const NetworkStatusCard = ({
                 {t("dashboard.currentPosition")}
               </p>
               <p className="text-[#FF0000] text-2xl font-bold mt-1">
-                {language === "es"
-                  ? userLevel.replace("Level", "Nivel")
-                  : userLevel}
+                {language === "es" ? "Nivel" : "Level"} {networkLevel}
               </p>
             </div>
             <div className="text-right">
@@ -74,10 +61,10 @@ const NetworkStatusCard = ({
               <span className="text-gray-500">
                 {t("dashboard.networkIncome")}
               </span>
-              <span className="text-[#FF0000]">${networkEarnings}</span>
+              <span className="text-[#FF0000]">${totalNetworkPaid/1e6}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full bg-[#FF0000]" style={{ width: `${((remainingDays) / MONTH) * 100}%` }} />
+              <div className="h-full bg-[#FF0000]" style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }} />
             </div>
           </div>
         </div>

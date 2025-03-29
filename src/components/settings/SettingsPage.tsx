@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { User, Users, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { useBalances, useManage, useUserInfo } from "@/hooks/useContract";
+import { useBalances, useManage } from "@/hooks/useContract";
 import { tronWeb } from "@/tronweb";
 import crazyAbi from '../../abi/crazytron.json'
 import { CRAZYTRON_ADDRESS, ZERO_ADDRESS } from "@/config/constants";
@@ -20,7 +20,8 @@ const SettingsPage = () => {
 
   const userReferrer=""
 
-  const { userLastPaymentTime } = useUserInfo()
+  // const { userLastPaymentTime } = useUserInfo()
+  const userLastPaymentTime = 0
   const { pending } = useManage()
 
   // const { userAddress: userAddress } = useUserName(username)

@@ -1,3 +1,5 @@
+import { useUser } from "@/hooks/useUser";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -54,6 +56,8 @@ const DashboardGrid = React.memo(
     onPackageSelect = () => {},
     onRenewNetwork = () => {},
   }: DashboardGridProps) => {
+    const {address} = useWallet()
+    const {data} = useUser(address)
     return (
       <div className="w-full min-h-screen p-2 sm:p-4 md:p-6">
         <div className="w-full max-w-[1312px] mx-auto space-y-4 md:space-y-6">
@@ -67,11 +71,14 @@ const DashboardGrid = React.memo(
             </Suspense>
           </ErrorBoundary>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4 lg:gap-6">
             <div className="xl:col-span-2">
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Suspense fallback={<LoadingFallback />}>
-                  <PackagesCard />
+                  <PackagesCard
+                    lastPaymentTime={data?.lastPaymentTime}
+                    packs={data?.packs}
+                  />
                 </Suspense>
               </ErrorBoundary>
             </div>
@@ -80,9 +87,9 @@ const DashboardGrid = React.memo(
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Suspense fallback={<LoadingFallback />}>
                   <NetworkStatusCard
-                    position={networkStatus?.position}
-                    timeUntilRenewal={networkStatus?.timeUntilRenewal}
-                    isRenewalNeeded={networkStatus?.isRenewalNeeded}
+                    networkLevel={data?.networkLevel}
+                    userLastPaymentTime={data?.lastPaymentTime}
+                    totalNetworkPaid={data?.totalNetworkPaid}
                     onRenew={onRenewNetwork}
                   />
                 </Suspense>

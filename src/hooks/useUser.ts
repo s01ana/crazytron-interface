@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useWallet } from '@tronweb3/tronwallet-adapter-react-hooks';
-import { tronWeb } from '@/tronweb';
-import { BACKEND_URL, CRAZYTRON_ADDRESS } from '../config/constants';
+import { BACKEND_URL } from '../config/constants';
 import useRefresh from './useRefresh';
-import crazyAbi from '../abi/crazytron.json'
-import { convertToRealNumber } from '../utils/common';
 import axios from 'axios';
 
-export function useNetworks(address: string) {
-	// const { address } = useWallet();
+export function useUser(address: string) {
 	const { slowRefresh } = useRefresh()
 
 	const [data, setData] = useState<any>();
@@ -16,7 +11,7 @@ export function useNetworks(address: string) {
 	useEffect(() => {
 		const fetchUserInfo = async () => {
 				try {
-					const response = await axios.post(`${BACKEND_URL}user/getNetwork`, {address: address}, {
+					const response = await axios.post(`${BACKEND_URL}user/getUser`, {address: address}, {
 						headers: {
 							"Content-Type": 'application/x-www-form-urlencoded'
 						}
@@ -25,7 +20,6 @@ export function useNetworks(address: string) {
 					if (response.status === 200 && response.data.data)
 						setData(response.data.data)
 
-					console.log(response.data.data)
 				} catch (error) {
 						// console.log('debug fetch allowance error::', error)
 				}

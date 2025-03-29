@@ -31,11 +31,11 @@ const getNavItems = (t: (key: string) => string): NavItem[] => [
     label: t("common.packages"),
     href: "/packages",
   },
-  // {
-  //   icon: <Users className="w-5 h-5" />,
-  //   label: t("common.network"),
-  //   href: "/network",
-  // },
+  {
+    icon: <Users className="w-5 h-5" />,
+    label: t("common.network"),
+    href: "/network",
+  },
   // {
   //   icon: <Settings className="w-5 h-5" />,
   //   label: t("common.settings"),
