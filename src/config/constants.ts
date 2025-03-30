@@ -1,11 +1,11 @@
 
 export const USDT_ADDRESS = "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf"
-export const CRAZYTRON_ADDRESS = "TU1EwyeC65ZZtYx85USGT5K72NrhdZe95U"
+export const CRAZYTRON_ADDRESS = "TLGTNqTQPs71d35up64AkpbStysTHMsLqU"
 export const ZERO_ADDRESS = "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb"
 export const MASTER_ADDRESS = "TA5t171S21YghWfXHRk5LcuPQ6RqCQXKix"
 
-export const WEEK = 60*70 // 60*60*24*7
-export const MONTH = 60*300 //60*60*24*30
+export const WEEK = 60*7 // 60*60*24*7
+export const MONTH = 60*30 //60*60*24*30
 
 export const TRONSCAN_URL = 'https://nile.tronscan.org/#/'
 export const MAIN_URL = "https://crazytron-interface.vercel.app/"
