@@ -9,9 +9,8 @@ import {
   PiggyBank,
   Calculator,
 } from "lucide-react";
-import { useQuickStats } from "@/hooks/useQuickStats";
 import { useNetworks } from "@/hooks/useNetworks";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
+import { useAccount } from "wagmi";
 
 interface QuickStatsCardProps {
   totalEarnings?: number;
@@ -21,7 +20,7 @@ interface QuickStatsCardProps {
 const QuickStatsCard = () => {
   const { t } = useLanguage();
 
-  const {address} = useWallet()
+  const {address} = useAccount()
 
   const { data } = useNetworks(address)
 
@@ -40,7 +39,7 @@ const QuickStatsCard = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">
-                {new BigNumber(data?.totalPackPaid).plus(data?.totalNetworkPaid).div(1e6).toFixed(2)} USDT
+                {new BigNumber(data?.totalPackPaid).plus(data?.totalNetworkPaid).div(1e18).toFixed(2)} USDT
               </p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.totalEarnings")}
@@ -54,7 +53,7 @@ const QuickStatsCard = () => {
               <PiggyBank className="h-6 w-6 text-[#FF0000]" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{data?.totalNetworkPaid / 1e6} USDT</p>
+              <p className="text-2xl font-bold text-gray-900">{data?.totalNetworkPaid / 1e18} USDT</p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.totalPassiveIncome")}
               </p>

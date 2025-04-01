@@ -11,9 +11,9 @@ import { Users, ChevronRight, Trophy, Wallet } from "lucide-react";
 import NetworkTree from "./NetworkTree";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import { useNetworks } from "@/hooks/useNetworks";
 import { addressElipse } from "@/utils/common";
+import { useAccount } from "wagmi";
 
 interface NetworkMember {
   address: string;
@@ -31,7 +31,7 @@ const NetworkPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [memberHistory, setMemberHistory] = useState<NetworkMember[]>([]);
 
-  const { address } = useWallet();
+  const { address } = useAccount();
 
   const {data} = useNetworks(address)
 
@@ -124,7 +124,7 @@ const NetworkPage = () => {
                         ? "Ganancias de Red"
                         : "Network Earnings"}
                     </p>
-                    <p className="text-lg sm:text-2xl font-bold">${data?.totalNetworkPaid / 1e6}</p>
+                    <p className="text-lg sm:text-2xl font-bold">${data?.totalNetworkPaid / 1e18}</p>
                   </div>
                 </div>
               </CardContent>

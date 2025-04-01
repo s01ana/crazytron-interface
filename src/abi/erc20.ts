@@ -1,4 +1,4 @@
-[
+export const erc20ABI = [
 	{
 		"inputs": [],
 		"payable": false,

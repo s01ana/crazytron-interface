@@ -1,5 +1,3 @@
-import { useBalances } from "@/hooks/useContract";
-import { useContractEvents } from "@/hooks/useContractEvents";
 import React from "react";
 
 // Lazy load main components
@@ -11,7 +9,6 @@ interface HomeProps {
 }
 
 const Home = React.memo(({ isLoading = false }: HomeProps) => {
-  const { tronBalance, usdtBalance, allowance } = useBalances()
   // Memoize mock data to prevent unnecessary re-renders
   const mockData = React.useMemo(
     () => ({

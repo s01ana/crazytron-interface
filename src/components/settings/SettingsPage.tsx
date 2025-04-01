@@ -7,10 +7,7 @@ import { Label } from "@/components/ui/label";
 import { User, Users, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { useBalances, useManage } from "@/hooks/useContract";
-import { tronWeb } from "@/tronweb";
-import crazyAbi from '../../abi/crazytron.json'
-import { CRAZYTRON_ADDRESS, ZERO_ADDRESS } from "@/config/constants";
+import { useManage } from "@/hooks/useContract";
 
 const SettingsPage = () => {
   const { t, language } = useLanguage()
@@ -42,31 +39,31 @@ const SettingsPage = () => {
   }, [userReferrer])
 
   const checkUserName = async (a) => {      
-    setPendingUsername(true)
-    const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS);
-		const _userAddress = await crazyContract.userAddress(a).call({ from: ZERO_ADDRESS })
-    if (tronWeb.address.fromHex(_userAddress) !== ZERO_ADDRESS)
-      setNameError(t("settings.usernameError"))
-    else
-      setNameError("")
-    if (a === "") {
-      setNameError("")
-    }
-    setPendingUsername(false)
+    // setPendingUsername(true)
+    // const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS);
+		// const _userAddress = await crazyContract.userAddress(a).call({ from: ZERO_ADDRESS })
+    // if (tronWeb.address.fromHex(_userAddress) !== ZERO_ADDRESS)
+    //   setNameError(t("settings.usernameError"))
+    // else
+    //   setNameError("")
+    // if (a === "") {
+    //   setNameError("")
+    // }
+    // setPendingUsername(false)
   }
 
   const checkSponser = async (a) => {      
-    setPendingSponser(true)
-    const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS);
-		const _userAddress = await crazyContract.userAddress(a).call({ from: ZERO_ADDRESS })
-    if (tronWeb.address.fromHex(_userAddress) === ZERO_ADDRESS)
-      setSponsorError(t("settings.sponsorError"))
-    else
-      setSponsorError("")
-    if (a === "") {
-      setSponsorError("")
-    }
-    setPendingSponser(false)
+    // setPendingSponser(true)
+    // const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS);
+		// const _userAddress = await crazyContract.userAddress(a).call({ from: ZERO_ADDRESS })
+    // if (tronWeb.address.fromHex(_userAddress) === ZERO_ADDRESS)
+    //   setSponsorError(t("settings.sponsorError"))
+    // else
+    //   setSponsorError("")
+    // if (a === "") {
+    //   setSponsorError("")
+    // }
+    // setPendingSponser(false)
   }
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

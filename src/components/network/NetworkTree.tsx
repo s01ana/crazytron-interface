@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, ChevronRight, ChevronDown } from "lucide-react";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import { addressElipse } from "@/utils/common";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useAccount } from "wagmi";
 
 interface NetworkMember {
   address: string;
@@ -21,7 +21,7 @@ interface NetworkTreeProps {
 
 const NetworkTree: React.FC<NetworkTreeProps> = ({ data, onMemberClick }) => {
   const { t, language } = useLanguage();
-  const { address } = useWallet();
+  const { address } = useAccount();
   const [expandedNodes, setExpandedNodes] = React.useState<Set<string>>(
     new Set([data?.address]),
   );

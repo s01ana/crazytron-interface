@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { BACKEND_URL, CRAZYTRON_ADDRESS, ZERO_ADDRESS } from '../config/constants';
 import useRefresh from './useRefresh';
 import axios from 'axios';
-import { tronWeb } from '@/tronweb';
-import crazyAbi from '../abi/crazytron.json'
+import { Address, parseAbi, zeroAddress } from 'viem';
+import { publicClient } from '@/utils/viem';
 
 export function usePackages(address: string) {
 	const { slowRefresh } = useRefresh()
@@ -13,10 +13,16 @@ export function usePackages(address: string) {
 	useEffect(() => {
 		const fetchUserInfo = async () => {
 				try {
-					const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS)
-          const _userReferrer = await crazyContract.userReferrer(address).call({ from: address })
+					const _userReferrer = await publicClient({chainId: 97}).readContract({
+						abi: parseAbi(['function userReferrer(address) public view returns (address)']),
+						address: CRAZYTRON_ADDRESS,
+						functionName: 'userReferrer',
+						args: [
+							address as Address
+						]
+					})
 
-					if (tronWeb.address.fromHex(_userReferrer) === ZERO_ADDRESS) {
+					if (_userReferrer === zeroAddress) {
 						setData(null)
 						return;
 					}

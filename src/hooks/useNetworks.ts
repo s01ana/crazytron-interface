@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useWallet } from '@tronweb3/tronwallet-adapter-react-hooks';
-import { tronWeb } from '@/tronweb';
 import { BACKEND_URL, CRAZYTRON_ADDRESS, ZERO_ADDRESS } from '../config/constants';
 import useRefresh from './useRefresh';
-import crazyAbi from '../abi/crazytron.json'
-import { convertToRealNumber } from '../utils/common';
+import {crazyTronABI} from '../abi/crazytron'
 import axios from 'axios';
+import { useReadContract } from 'wagmi';
+import { zeroAddress } from 'viem';
 
 export function useNetworks(address: string) {
 	// const { address } = useWallet();
@@ -13,13 +12,17 @@ export function useNetworks(address: string) {
 
 	const [data, setData] = useState<any>();
 
+	const result = useReadContract({
+    abi: crazyTronABI,
+    address: CRAZYTRON_ADDRESS,
+    functionName: "userReferrer",
+		args: [address]
+  });
+
 	useEffect(() => {
 		const fetchUserInfo = async () => {
 				try {
-					const crazyContract = await tronWeb.contract(crazyAbi, CRAZYTRON_ADDRESS)
-          const _userReferrer = await crazyContract.userReferrer(address).call({ from: address })
-
-					if (tronWeb.address.fromHex(_userReferrer) === ZERO_ADDRESS) {
+					if (result.data === zeroAddress) {
 						setData(null)
 						return;
 					}

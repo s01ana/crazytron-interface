@@ -2,7 +2,7 @@ import React from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { History } from "lucide-react";
-import { useContractEvents } from "@/hooks/useContractEvents";
+// import { useContractEvents } from "@/hooks/useContractEvents";
 
 interface Transaction {
   hash: string;
@@ -61,7 +61,7 @@ const mockTransactions: Transaction[] = [
 const SmartContractActivity = () => {
   const { t } = useLanguage();
 
-  const {} = useContractEvents()
+  // const {} = useContractEvents()
 
   return (
     <Card className="w-full bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">

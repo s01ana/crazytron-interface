@@ -113,7 +113,7 @@ const PackagesCard = ({
                 {t("dashboard.passiveUnrealizedProfits")}
               </span>
               <span className="text-[#FF0000]">
-                ${paidProfit / 1e6} / ${totalProfit / 1e6}
+                ${paidProfit / 1e18} / ${totalProfit / 1e18}
               </span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -196,7 +196,7 @@ const PackagesCard = ({
                       <span className="text-[#FF0000]">
                         {Math.round(
                           ((packs?.[i]?.totalPaid ?? 0) * 100) /
-                            (3 * pkg?.amount * 1e6)
+                            (3 * pkg?.amount * 1e18)
                         )}
                         %
                       </span>
@@ -207,13 +207,13 @@ const PackagesCard = ({
                         style={{
                           width: `${Math.round(
                             ((packs?.[i]?.totalPaid ?? 0) * 100) /
-                              (3 * pkg?.amount * 1e6)
+                              (3 * pkg?.amount * 1e18)
                           )}%`,
                         }}
                       />
                     </div>
                     <div className="text-xs text-gray-500">
-                      ${((packs?.[i]?.totalPaid ?? 0)) / 1e6} /
+                      ${((packs?.[i]?.totalPaid ?? 0)) / 1e18} /
                       ${maxEarnings} USDT
                     </div>
                   </div>

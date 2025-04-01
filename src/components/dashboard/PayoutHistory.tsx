@@ -102,7 +102,7 @@ const PayoutHistory = () => {
               >
                 <div className="flex justify-between items-start">
                   <a
-                    href={`https://tronscan.org/#/transaction/${payout.hash}`}
+                    href={`https://tronscan.org/#/tx/${payout.hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#FF0000] hover:underline text-sm"

@@ -1,5 +1,3 @@
-import { useBalances } from "@/hooks/useContract";
-import { useContractEvents } from "@/hooks/useContractEvents";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
@@ -14,7 +12,6 @@ interface HomeProps {
 
 const Home = React.memo(({ isLoading = false }: HomeProps) => {
   const { t } = useLanguage();
-  const { tronBalance, usdtBalance, allowance } = useBalances()
   // Memoize mock data to prevent unnecessary re-renders
   const mockData = React.useMemo(
     () => ({

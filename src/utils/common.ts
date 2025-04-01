@@ -1,4 +1,6 @@
 import BigNumber from "bignumber.js"
+import { bscTestnet } from "viem/chains"
+import { createConfig, http } from "wagmi"
 
 export const isClient = () => typeof window !== 'undefined'
 
@@ -12,3 +14,10 @@ export const addressElipse = (address: string | undefined) => {
         return ''
     return address.slice(0, 4).concat('...').concat(address.slice(address.length - 4, address.length))
 }
+
+export const config = createConfig({
+    chains: [bscTestnet],
+    transports: {
+      [bscTestnet.id]: http(),
+    },
+  })

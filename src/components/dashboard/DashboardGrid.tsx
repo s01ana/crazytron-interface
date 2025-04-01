@@ -1,7 +1,7 @@
 import { useUser } from "@/hooks/useUser";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useAccount } from "wagmi";
 
 // Lazy load components
 const PackagesCard = React.lazy(() => import("./PackagesCard"));
@@ -56,7 +56,7 @@ const DashboardGrid = React.memo(
     onPackageSelect = () => {},
     onRenewNetwork = () => {},
   }: DashboardGridProps) => {
-    const {address} = useWallet()
+    const {address} = useAccount()
     const {data} = useUser(address)
     return (
       <div className="w-full min-h-screen p-2 sm:p-4 md:p-6">

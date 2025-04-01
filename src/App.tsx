@@ -1,8 +1,14 @@
 import React, { Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-import "@tronweb3/tronwallet-adapter-react-ui/style.css";
-import TronWalletProvider from "./TronWalletProvider";
+
+import { createAppKit } from '@reown/appkit/react'
+
+import { WagmiProvider } from 'wagmi'
+import { arbitrum, bscTestnet, mainnet } from '@reown/appkit/networks'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
+
 import { RefreshContextProvider } from "./contexts/RefreshContext";
 import { useReferrerAtom } from "./utils/referral";
 import { MASTER_ADDRESS, ZERO_ADDRESS } from "./config/constants";
@@ -37,6 +43,57 @@ const ErrorFallback = ({ error }: { error: Error }) => (
   </div>
 );
 
+// 0. Setup queryClient
+const queryClient = new QueryClient()
+
+// 1. Get projectId from https://cloud.reown.com
+const projectId = '93f48d5647f269da06b4c2f798ada741'
+
+// 2. Create a metadata object - optional
+const metadata = {
+  name: 'CrazyTron',
+  description: '',
+  url: '', // origin must match your domain & subdomain
+  icons: ['https://avatars.githubusercontent.com/u/179229932']
+}
+
+// 3. Set the networks
+const networks = [bscTestnet]
+
+// 4. Create Wagmi Adapter
+const wagmiAdapter = new WagmiAdapter({
+  networks,
+  projectId,
+  ssr: true
+})
+
+// 5. Create modal
+createAppKit({
+  adapters: [wagmiAdapter],
+  networks: networks as any,
+  projectId,
+  allowUnsupportedChain: false,
+  metadata,
+  features: {
+    analytics: false, // Optional - defaults to your Cloud configuration
+    onramp: false,
+    email: false,
+    socials: false,
+    emailShowWallets: false,
+    swaps: false
+  },
+  themeMode: "dark",
+  themeVariables: {
+    '--w3m-color-mix': '#000000',
+    '--w3m-color-mix-strength': 0,
+    '--w3m-accent': '#ff0000',
+    '--w3m-border-radius-master': '1.5px'
+  },
+  chainImages: {
+    97: "/56.png"
+  }
+})
+
 function App() {
   const [referrer, setReferrer] = useReferrerAtom()
   const location = useLocation()
@@ -56,15 +113,17 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<LoadingFallback />}>
         <RefreshContextProvider>
-          <TronWalletProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/packages" element={<PackagesPage />} />
-              <Route path="/network" element={<NetworkPage />} />
-              <Route path="/compensation" element={<CompensationPage />} />
-              {/* <Route path="/settings" element={<SettingsPage />} /> */}
-            </Routes>
-          </TronWalletProvider>
+          <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+            <QueryClientProvider client={queryClient}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/packages" element={<PackagesPage />} />
+                <Route path="/network" element={<NetworkPage />} />
+                <Route path="/compensation" element={<CompensationPage />} />
+                {/* <Route path="/settings" element={<SettingsPage />} /> */}
+              </Routes>
+            </QueryClientProvider>
+          </WagmiProvider>
         </RefreshContextProvider>
       </Suspense>
     </ErrorBoundary>

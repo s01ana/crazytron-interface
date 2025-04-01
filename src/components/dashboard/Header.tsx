@@ -12,7 +12,6 @@ import {
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { WalletActionButton } from "@tronweb3/tronwallet-adapter-react-ui";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -76,9 +75,9 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f172a] border-b border-gray-800/50 px-2 sm:px-4">
       <div className="max-w-[1312px] mx-auto px-4">
-        <div className="h-16 flex items-center justify-between gap-8">
+        <div className="h-16 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mr-4">
             <svg
               className="w-6 h-6 text-[#FF0000]"
               viewBox="0 0 100 100"
@@ -94,7 +93,7 @@ const Header = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-2 flex-1 justify-center">
+          <nav className="hidden lg:flex items-center gap-2 flex-1 justify-center">
             {navItems.map((item, index) => (
               <Button
                 key={index}
@@ -116,7 +115,7 @@ const Header = () => {
           </nav>
 
           {/* Language Selector */}
-          <div className="hidden md:flex items-center gap-2 mr-4">
+          <div className="hidden lg:flex items-center gap-2 mr-4">
             <Select
               value={language}
               onValueChange={(value: "en" | "es") => setLanguage(value)}
@@ -140,7 +139,10 @@ const Header = () => {
           {/* Wallet Connect */}
           {/* <WalletConnect className="hidden md:flex min-w-[48px] justify-center" /> */}
           {/* <div className="hidden md:flex min-w-[48px] justify-center"> */}
-            <WalletActionButton className="hidden md:flex min-w-[48px] justify-center" />
+            {/* <WalletActionButton className="hidden md:flex min-w-[48px] justify-center" /> */}
+          <div className="hidden lg:flex">
+            <appkit-button balance='hide' />
+          </div>
           {/* </div> */}
 
           {/* Mobile Menu */}
@@ -148,7 +150,7 @@ const Header = () => {
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
-                className="md:hidden text-white/80 hover:text-white hover:bg-[#FF0000]"
+                className="lg:hidden text-white/80 hover:text-white hover:bg-[#FF0000]"
               >
                 <Menu className="w-6 h-6" />
               </Button>
@@ -223,7 +225,8 @@ const Header = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    <WalletActionButton className="w-full justify-start px-4 py-6"/>
+                    {/* <WalletActionButton className="w-full justify-start px-4 py-6"/> */}
+                    <appkit-button balance='hide' />
                   </div>
                 </nav>
               </div>

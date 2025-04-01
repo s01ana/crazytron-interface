@@ -4,9 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link, Copy } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import toast, { Toaster } from "react-hot-toast";
 import { MAIN_URL } from "@/config/constants";
+import { useAccount } from "wagmi";
 
 interface AffiliateLinkProps {
   affiliateId?: string;
@@ -14,7 +14,7 @@ interface AffiliateLinkProps {
 
 const AffiliateLink = () => {
   const { t } = useLanguage();
-  const { address } = useWallet()
+  const { address } = useAccount()
   const affiliateLink = `${MAIN_URL}?ref=${address}`;
 
   const copyToClipboard = () => {

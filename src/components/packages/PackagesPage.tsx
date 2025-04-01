@@ -14,7 +14,7 @@ import { useManage } from "@/hooks/useContract";
 import { MONTH, TRONSCAN_URL, WEEK } from "@/config/constants";
 import toast, { ToastBar, Toaster } from "react-hot-toast";
 import { usePackages } from "@/hooks/usePackages";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
+import { useAccount } from "wagmi";
 
 interface PackageInfo {
   amount: number;
@@ -30,7 +30,7 @@ const PackagesPage = () => {
   const { t, language } = useLanguage();
 
   const { onBuyPack, onResetPack, onPayFee, pending } = useManage();
-  const { address } = useWallet();
+  const { address } = useAccount();
   const { data } = usePackages(address);
 
   const activeLevel = data ? data.activeLevel : -1
@@ -121,7 +121,7 @@ const PackagesPage = () => {
       toast.success(
         <div className="flex gap-1">
           <p>Successfully purchased.</p>
-          <a href={`${TRONSCAN_URL}transaction/${result.tx}`} target="_blink">
+          <a href={`${TRONSCAN_URL}tx/${result.result}`} target="_blink">
             <p className="text-green-500">View transaction</p>
           </a>
         </div>
@@ -134,7 +134,7 @@ const PackagesPage = () => {
       toast.success(
         <div className="flex gap-1">
           <p>Successfully re-purchased.</p>
-          <a href={`${TRONSCAN_URL}transaction/${result.tx}`} target="_blink">
+          <a href={`${TRONSCAN_URL}tx/${result.result}`} target="_blink">
             <p className="text-green-500">View transaction</p>
           </a>
         </div>
@@ -147,7 +147,7 @@ const PackagesPage = () => {
       toast.success(
         <div className="flex gap-1">
           <p>Successfully paid.</p>
-          <a href={`${TRONSCAN_URL}transaction/${result.tx}`} target="_blink">
+          <a href={`${TRONSCAN_URL}tx/${result.result}`} target="_blink">
             <p className="text-green-500">View transaction</p>
           </a>
         </div>
@@ -294,7 +294,7 @@ const PackagesPage = () => {
                         await handleReset(pkg);
                       }}
                       disabled={
-                        data?.packs[i].totalPaid < pkg.maxReturn * 1e6 ||
+                        data?.packs[i].totalPaid < pkg.maxReturn * 1e18 ||
                         pending
                       }
                     >
