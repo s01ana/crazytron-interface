@@ -100,7 +100,7 @@ const Header = () => {
                 variant="ghost"
                 className={cn(
                   "flex items-center gap-2 px-4 py-2",
-                  "text-white/80 hover:text-white",
+                  "text-white/80 hover:text-white hover:bg-[#c05100]",
                   currentPath === item.href
                     ? "bg-[#903d00]"
                     : "hover:bg-[#903d00]",
