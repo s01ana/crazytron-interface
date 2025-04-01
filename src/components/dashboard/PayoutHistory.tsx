@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { History } from "lucide-react";
+import { useHistory } from "@/hooks/useHistory";
+import { useAccount } from "wagmi";
+import { TRONSCAN_URL } from "@/config/constants";
+import { addressElipse } from "@/utils/common";
+import BigNumber from "bignumber.js";
 
 interface Payout {
   hash: string;
@@ -10,6 +15,22 @@ interface Payout {
   status: "confirmed" | "pending";
   type: "package" | "referral" | "distribution" | "renewal";
   description: string;
+}
+
+const descriptions = {
+  'PackCreated': 'Network Referral Fee',
+  'PackPaid': 'Weekly Package Earning',
+  'PackPaidCommission': 'Network Distribution Bonus',
+  'PackReset': 'Network Referral Fee',
+  'NetworkPaid': 'Network Renewal Bonus',
+}
+
+const tags = {
+  'PackCreated': 'referral',
+  'PackPaid': 'package',
+  'PackPaidCommission': 'distribution',
+  'PackReset': 'referral',
+  'NetworkPaid': 'renewal',
 }
 
 const mockPayouts: Payout[] = [
@@ -62,13 +83,37 @@ const getTypeColor = (type: Payout["type"]) => {
   }
 };
 
+const getTimeDifferenceFromNow = (timestamp) => {
+  const now = Date.now();
+  const diffMs = now - timestamp;
+  
+  const seconds = Math.floor(diffMs / 1000) % 60;
+  const minutes = Math.floor(diffMs / (1000 * 60)) % 60;
+  const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
+  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  const parts = [];
+  if (days > 0) parts.push(`${days}d`);
+  if (hours > 0) parts.push(`${hours}h`);
+  if (minutes > 0) parts.push(`${minutes}m`);
+  if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`); // Always show at least "0s"
+
+  return parts.join(' ') + ' ago';
+}
+
 const PayoutHistory = () => {
-  const { t } = useLanguage();
+  // const { t } = useLanguage();
+  const {address} = useAccount()
+  const [page, setPage] = useState(0)
+  const [sort, setSort] = useState(true)
+  const [limit, setLimit] = useState(10)
+  const {data} = useHistory(address, page, sort, limit);
+
   return (
-    <Card className="w-full bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <History className="w-6 h-6 text-[#FF0000]" />
+          <History className="w-6 h-6 text-[#903d00]" />
           Payout History
         </CardTitle>
       </CardHeader>
@@ -95,37 +140,34 @@ const PayoutHistory = () => {
           </div>
           {/* Mobile view */}
           <div className="md:hidden space-y-4">
-            {mockPayouts.map((payout) => (
+            {data?.transactions.map((payout) => (
               <div
-                key={payout.hash}
+                key={payout.id}
                 className="bg-gray-50 p-4 rounded-lg space-y-3"
               >
                 <div className="flex justify-between items-start">
                   <a
-                    href={`https://tronscan.org/#/tx/${payout.hash}`}
+                    href={`${TRONSCAN_URL}tx/${payout.hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#FF0000] hover:underline text-sm"
+                    className="text-[#903d00] hover:underline text-sm"
                   >
-                    {payout.hash}
+                    {addressElipse(payout.hash)}
                   </a>
                   <span
-                    className={`px-2 py-1 rounded-full text-xs ${getTypeColor(payout.type)}`}
+                    className={`px-2 py-1 rounded-full text-xs ${getTypeColor(tags[payout.event])}`}
                   >
-                    {payout.type}
+                    {tags[payout.event]}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">
-                    {Math.floor(
-                      (Date.now() - payout.timestamp.getTime()) / 60000,
-                    )}{" "}
-                    mins ago
+                    {getTimeDifferenceFromNow(Number(payout.timestamp * 1000))}
                   </span>
-                  <span className="text-green-600">+{payout.amount} USDT</span>
+                  <span className="text-green-600">+{new BigNumber(payout.earned).div(1e18).toJSON()} USDT</span>
                 </div>
                 <div className="text-sm text-gray-600">
-                  {payout.description}
+                  {descriptions[payout.event]}
                 </div>
               </div>
             ))}
@@ -157,41 +199,38 @@ const PayoutHistory = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {mockPayouts.map((payout) => (
-                  <tr key={payout.hash} className="hover:bg-gray-50">
+                {data?.transactions.map((t, i) => (
+                  <tr key={t.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
                       <a
-                        href={`https://tronscan.org/#/transaction/${payout.hash}`}
+                        href={`${TRONSCAN_URL}tx/${t.hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#FF0000] hover:underline"
+                        className="text-[#903d00] hover:underline"
                       >
-                        {payout.hash}
+                        {addressElipse(t.hash)}
                       </a>
                     </td>
                     <td className="px-4 py-3 text-gray-500">
-                      {Math.floor(
-                        (Date.now() - payout.timestamp.getTime()) / 60000,
-                      )}{" "}
-                      mins ago
+                    {getTimeDifferenceFromNow(Number(t.timestamp * 1000))}
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`px-2 py-1 rounded-full text-xs ${getTypeColor(payout.type)}`}
+                        className={`px-2 py-1 rounded-full text-xs ${getTypeColor(tags[t.event])}`}
                       >
-                        {payout.type}
+                        {tags[t.event]}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-gray-600">
-                      {payout.description}
+                      {descriptions[t.event]}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <span className="text-green-600">
-                        +{payout.amount} USDT
+                        +{new BigNumber(t.earned).div(1e18).toJSON()} USDT
                       </span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      {payout.status === "confirmed" ? (
+                      {/* {payout.status === "confirmed" ? (
                         <svg
                           className="w-5 h-5 text-green-500 mx-auto"
                           fill="none"
@@ -207,7 +246,20 @@ const PayoutHistory = () => {
                         </svg>
                       ) : (
                         <div className="w-2 h-2 bg-yellow-500 rounded-full mx-auto" />
-                      )}
+                      )} */}
+                      <svg
+                        className="w-5 h-5 text-green-500 mx-auto"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
                     </td>
                   </tr>
                 ))}

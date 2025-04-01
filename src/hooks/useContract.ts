@@ -3,7 +3,7 @@ import { Abi, Address, erc20Abi, EstimateContractGasParameters, WriteContractPar
 import { USDT_ADDRESS, CRAZYTRON_ADDRESS, ChainId } from "../config/constants";
 import {crazyTronABI} from "../abi/crazytron";
 import BigNumber from "bignumber.js";
-import { config } from "../utils/common";
+import { config, sleep } from "../utils/common";
 import toast, { Toaster } from "react-hot-toast";
 import { useReferrerAtom } from "@/utils/referral";
 import { useWalletClient } from "wagmi";
@@ -40,9 +40,10 @@ export function useManage() {
             functionName: 'approve',
             args: [
               CRAZYTRON_ADDRESS as Address,
-              BigInt(amount)
+              BigInt(amount * 1e18)
             ],
           } as unknown as WriteContractParameters)
+          await sleep(3000)
         }
 
         const hash = await walletClient.writeContract({
@@ -59,7 +60,7 @@ export function useManage() {
         return { result: hash };
       } catch (error) {
         console.log(error.message);
-        if (error.message !== "Confirmation declined by user") {
+        if (!error.message.includes("User rejected the request")) {
           toast.error(error.message);
         }
       } finally {
@@ -98,6 +99,7 @@ export function useManage() {
               BigInt(amount)
             ],
           } as unknown as WriteContractParameters)
+          await sleep(3000)
         }
 
         const hash = await walletClient.writeContract({
@@ -152,6 +154,7 @@ export function useManage() {
               50000000000000000000n
             ],
           } as unknown as WriteContractParameters)
+          await sleep(3000)
         }
 
         const hash = await walletClient.writeContract({

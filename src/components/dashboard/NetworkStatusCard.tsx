@@ -24,10 +24,10 @@ const NetworkStatusCard = ({
   remainingDays = remainingDays > 0 ? remainingDays : 0
 
   return (
-    <Card className="w-full h-[200px] bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+    <Card className="w-full h-[200px] bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Network className="w-6 h-6 text-[#FF0000]" />
+          <Network className="w-6 h-6 text-[#903d00]" />
           {language === "es" ? "Red" : "Network"}
         </CardTitle>
       </CardHeader>
@@ -38,7 +38,7 @@ const NetworkStatusCard = ({
               <p className="text-gray-500 text-sm">
                 {t("dashboard.currentPosition")}
               </p>
-              <p className="text-[#FF0000] text-2xl font-bold mt-1">
+              <p className="text-[#903d00] text-2xl font-bold mt-1">
                 {language === "es" ? "Nivel" : "Level"} {networkLevel}
               </p>
             </div>
@@ -47,7 +47,7 @@ const NetworkStatusCard = ({
                 {t("dashboard.timeUntilRenewal")}
               </p>
               <div className="flex items-center gap-2 justify-end mt-1">
-                <Timer className="w-5 h-5 text-[#FF0000]" />
+                <Timer className="w-5 h-5 text-[#903d00]" />
                 <p className="text-xl font-semibold">
                   {remainingDays} minutes
                 </p>
@@ -60,10 +60,10 @@ const NetworkStatusCard = ({
               <span className="text-gray-500">
                 {t("dashboard.networkIncome")}
               </span>
-              <span className="text-[#FF0000]">${totalNetworkPaid/1e18}</span>
+              <span className="text-[#903d00]">${totalNetworkPaid/1e18}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full bg-[#FF0000]" style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }} />
+              <div className="h-full bg-[#903d00]" style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }} />
             </div>
           </div>
         </div>

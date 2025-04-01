@@ -26,7 +26,7 @@ const BuyPackageSection = ({
   isLoading = false,
 }: BuyPackageSectionProps) => {
   return (
-    <div className="w-full p-4 bg-white rounded-lg shadow-lg border border-[#FF0000]/20">
+    <div className="w-full p-4 bg-white rounded-lg shadow-lg border border-[#903d00]/20">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="space-y-1">
           <h3 className="text-lg font-semibold text-white">

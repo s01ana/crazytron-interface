@@ -58,7 +58,7 @@ const Home = React.memo(({ isLoading = false }: HomeProps) => {
     <div className="min-h-screen bg-white">
       {/* <Header /> */}
       <main className="pt-16">
-        <Card className="w-full bg-white shadow-lg hover:shadow-[#FF0000]/10 transition-all duration-300 border-[#FF0000]/20">
+        <Card className="w-full bg-white shadow-lg hover:shadow-[#903d00]/10 transition-all duration-300 border-[#903d00]/20">
         <CardHeader>
           <CardTitle className="text-xl font-bold text-gray-900">
             Invalid Referral

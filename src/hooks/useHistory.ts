@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { BACKEND_URL, CRAZYTRON_ADDRESS } from '../config/constants';
 import useRefresh from './useRefresh';
 import axios from 'axios';
-import { Address, parseAbi, zeroAddress } from 'viem';
-import { publicClient } from '@/utils/viem';
+import { isAddress } from 'viem';
 
-export function useUser(address: string) {
+export function useHistory(address: string, page: number, sort: boolean, limit: number) {
 	const { fastRefresh } = useRefresh()
 
 	const [data, setData] = useState<any>();
@@ -13,21 +12,14 @@ export function useUser(address: string) {
 	useEffect(() => {
 		const fetchUserInfo = async () => {
 				try {
-
-					const _userReferrer = await publicClient({chainId: 97}).readContract({
-						abi: parseAbi(['function userReferrer(address) public view returns (address)']),
-						address: CRAZYTRON_ADDRESS,
-						functionName: 'userReferrer',
-						args: [
-							address as Address
-						]
-					})
-
-					if (_userReferrer === zeroAddress) {
-						setData(null)
-						return;
-					}
-					const response = await axios.post(`${BACKEND_URL}user/getUser`, {address: address}, {
+					if (!isAddress(address))
+						return
+					const response = await axios.post(`${BACKEND_URL}user/getHistory`, {
+						address: address,
+						page: 0,
+						sort: sort ? '-1': '1',
+						limit
+					}, {
 						headers: {
 							"Content-Type": 'application/x-www-form-urlencoded'
 						}

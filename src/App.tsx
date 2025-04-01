@@ -32,7 +32,7 @@ const SettingsPage = React.lazy(
 
 const LoadingFallback = () => (
   <div className="w-full h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#FF0000]" />
+    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#903d00]" />
   </div>
 );
 
@@ -51,7 +51,7 @@ const projectId = '93f48d5647f269da06b4c2f798ada741'
 
 // 2. Create a metadata object - optional
 const metadata = {
-  name: 'CrazyTron',
+  name: 'CrazyBSC',
   description: '',
   url: '', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932']
@@ -86,7 +86,7 @@ createAppKit({
   themeVariables: {
     '--w3m-color-mix': '#000000',
     '--w3m-color-mix-strength': 0,
-    '--w3m-accent': '#ff0000',
+    '--w3m-accent': '#903d00',
     '--w3m-border-radius-master': '1.5px'
   },
   chainImages: {

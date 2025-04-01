@@ -67,8 +67,8 @@ const DashboardGrid = React.memo(
             </Suspense>
           </ErrorBoundary>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4 lg:gap-6">
-            <div className="xl:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
+            <div className="lg:col-span-2">
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Suspense fallback={<LoadingFallback />}>
                   <PackagesCard
@@ -79,7 +79,7 @@ const DashboardGrid = React.memo(
               </ErrorBoundary>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-6 lg:col-span-1">
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Suspense fallback={<LoadingFallback />}>
                   <NetworkStatusCard
@@ -97,7 +97,7 @@ const DashboardGrid = React.memo(
                 </Suspense>
               </ErrorBoundary>
 
-              {!packages?.length && (
+              {!(data?.packs || data?.packs?.length || data?.packs?.length > 0) && (
                 <ErrorBoundary FallbackComponent={ErrorFallback}>
                   <Suspense fallback={<LoadingFallback />}>
                     <BuyPackageSection onPackageSelect={onPackageSelect} />
@@ -114,17 +114,18 @@ const DashboardGrid = React.memo(
               </Suspense>
             </ErrorBoundary> */}
 
+
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Suspense fallback={<LoadingFallback />}>
+                <PayoutHistory />
+              </Suspense>
+            </ErrorBoundary>
+
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Suspense fallback={<LoadingFallback />}>
                 <EarningsCalculator />
               </Suspense>
             </ErrorBoundary>
-
-            {/* <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Suspense fallback={<LoadingFallback />}>
-                <PayoutHistory />
-              </Suspense>
-            </ErrorBoundary> */}
           </div>
         </div>
       </div>

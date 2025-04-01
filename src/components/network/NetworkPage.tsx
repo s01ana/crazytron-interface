@@ -55,7 +55,7 @@ const NetworkPage = () => {
             <input
               type="text"
               placeholder="Search network members..."
-              className="w-full p-3 pl-10 rounded-lg border border-[#FF0000]/20 focus:outline-none focus:ring-2 focus:ring-[#FF0000]/20"
+              className="w-full p-3 pl-10 rounded-lg border border-[#903d00]/20 focus:outline-none focus:ring-2 focus:ring-[#903d00]/20"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -74,11 +74,11 @@ const NetworkPage = () => {
           </div>
           {/* Network Overview */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-            <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#FF0000]/10">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0000]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -87,36 +87,36 @@ const NetworkPage = () => {
                         : "Total Network Size"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {language === "es" ? `${data?.networkSize} Miembros` : `${data?.networkSize} Members`}
+                      {language === "es" ? `${data?.networkSize ?? 0} Miembros` : `${data?.networkSize ?? 0} Members`}
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#FF0000]/10">
-                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0000]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
+                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
                       {language === "es" ? "Nivel de Red" : "Network Level"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {data?.networkLevel}
+                      {data?.networkLevel ?? 0}
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#FF0000]/10">
-                    <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0000]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
+                    <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -124,17 +124,17 @@ const NetworkPage = () => {
                         ? "Ganancias de Red"
                         : "Network Earnings"}
                     </p>
-                    <p className="text-lg sm:text-2xl font-bold">${data?.totalNetworkPaid / 1e18}</p>
+                    <p className="text-lg sm:text-2xl font-bold">${(data?.totalNetworkPaid ?? 0) / 1e18}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#FF0000]/10">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0000]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -143,7 +143,7 @@ const NetworkPage = () => {
                         : "Direct Referrals"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {language === "es" ? `${data?.children.length} Miembros` : `${data?.children.length} Members`}
+                      {language === "es" ? `${data?.children.length ?? 0} Miembros` : `${data?.children.length ?? 0} Members`}
                     </p>
                   </div>
                 </div>
@@ -152,10 +152,10 @@ const NetworkPage = () => {
           </div>
 
           {/* Network Tree */}
-          <NetworkTree
+          {data && <NetworkTree
             data={data}
             onMemberClick={handleMemberClick}
-          />
+          />}
 
           {/* Member Details Dialog */}
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -205,8 +205,8 @@ const NetworkPage = () => {
               {selectedMember && (
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-[#FF0000]/10">
-                      <Users className="w-6 h-6 text-[#FF0000]" />
+                    <div className="p-3 rounded-full bg-[#903d00]/10">
+                      <Users className="w-6 h-6 text-[#903d00]" />
                     </div>
                     <div>
                       <p className="text-lg font-semibold">

@@ -64,10 +64,10 @@ const SmartContractActivity = () => {
   // const {} = useContractEvents()
 
   return (
-    <Card className="w-full bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <History className="w-6 h-6 text-[#FF0000]" />
+          <History className="w-6 h-6 text-[#903d00]" />
           Smart Contract Activity
         </CardTitle>
       </CardHeader>
@@ -115,7 +115,7 @@ const SmartContractActivity = () => {
                         href={`https://tronscan.org/#/transaction/${tx.hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#FF0000] hover:underline"
+                        className="text-[#903d00] hover:underline"
                       >
                         {tx.hash}
                       </a>

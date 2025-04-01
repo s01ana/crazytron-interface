@@ -98,10 +98,10 @@ const SettingsPage = () => {
             <p className="text-gray-500">{t("settings.subtitle")}</p>
           </div>
 
-          <Card className="border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+          <Card className="border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <User className="w-5 h-5 text-[#FF0000]" />
+                <User className="w-5 h-5 text-[#903d00]" />
                 {t("settings.title")}
               </CardTitle>
             </CardHeader>
@@ -117,7 +117,7 @@ const SettingsPage = () => {
                       ? "Ingresa tu nombre de usuario"
                       : "Enter your username"
                   }
-                  className="border-[#FF0000]/20"
+                  className="border-[#903d00]/20"
                 />
                 {nameError !== "" && <p className="text-sm text-red-500">
                   {t("settings.usernameError")}
@@ -128,7 +128,7 @@ const SettingsPage = () => {
                 <div className="pt-4">
                 <Button
                   onClick={handleSaveUserName}
-                  className="w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white"
+                  className="w-full bg-[#903d00] hover:bg-[#903d00]/90 text-white"
                   // disabled={pending || userName === username}
                   disabled={pending}
                 >
@@ -148,15 +148,15 @@ const SettingsPage = () => {
                       ? "Ingresa el nombre de usuario del patrocinador"
                       : "Enter sponsor username"
                   }
-                  className="border-[#FF0000]/20"
+                  className="border-[#903d00]/20"
                   disabled={isActivated}
                 />
                 {sponsorError !== "" && <p className="text-sm text-red-500">
                   {t("settings.sponsorError")}
                 </p>}
                 {!isActivated && (
-                  <Alert className="flex items-center bg-[#FF0000]/5 border-[#FF0000]/20">
-                    <AlertCircle className="h-4 w-4 text-[#FF0000]" />
+                  <Alert className="flex items-center bg-[#903d00]/5 border-[#903d00]/20">
+                    <AlertCircle className="h-4 w-4 text-[#903d00]" />
                     <AlertDescription>
                       {t("settings.sponsorDescription")}
                     </AlertDescription>
@@ -172,7 +172,7 @@ const SettingsPage = () => {
               <div className="pt-4">
                 <Button
                   onClick={handleSaveSponser}
-                  className="w-full bg-[#FF0000] hover:bg-[#FF0000]/90 text-white"
+                  className="w-full bg-[#903d00] hover:bg-[#903d00]/90 text-white"
                   disabled={pending || userLastPaymentTime !== 0 || pendingSponser}
                 >
                   {t("settings.saveChanges")}
@@ -181,10 +181,10 @@ const SettingsPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+          <Card className="border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#FF0000]" />
+                <Users className="w-5 h-5 text-[#903d00]" />
                 {t("settings.referralLink")}
               </CardTitle>
             </CardHeader>
@@ -192,7 +192,7 @@ const SettingsPage = () => {
               <Input
                 value={`https://crazytron.com/ref/${username}`}
                 readOnly
-                className="bg-black/50 border-[#FF0000]/20 text-white"
+                className="bg-black/50 border-[#903d00]/20 text-white"
               />
               <p className="text-sm text-gray-500 mt-2">
                 {t("settings.referralLinkDescription")}

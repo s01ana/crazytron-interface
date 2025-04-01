@@ -23,14 +23,14 @@ const AffiliateLink = () => {
   };
 
   return (
-    <Card className="w-full bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
       <Toaster 
         position="top-right" 
         containerStyle={{ top: 80, right: 20, zIndex: 50 }}
       />
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Link className="w-6 h-6 text-[#FF0000]" />
+          <Link className="w-6 h-6 text-[#903d00]" />
           {t("dashboard.affiliateLink")}
         </CardTitle>
       </CardHeader>
@@ -39,7 +39,7 @@ const AffiliateLink = () => {
           <Input
             value={affiliateLink}
             readOnly
-            className="bg-black/50 border-[#FF0000]/20 text-white"
+            className="bg-black/50 border-[#903d00]/20 text-white"
           />
           <Button
             onClick={copyToClipboard}

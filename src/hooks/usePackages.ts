@@ -42,7 +42,7 @@ export function usePackages(address: string, isFast: boolean) {
 				fetchUserInfo()
 			}
 
-	}, [slowRefresh, address])
+	}, [fastRefresh, address])
 
 	return {
 		data

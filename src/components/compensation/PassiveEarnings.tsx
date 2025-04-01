@@ -7,13 +7,13 @@ const PassiveEarnings = () => {
   const { language } = useLanguage();
 
   return (
-    <Card className="bg-white border-[#FF0000]/20 shadow-lg hover:shadow-[#FF0000]/10 transition-shadow overflow-hidden">
+    <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow overflow-hidden">
       <CardContent className="p-6">
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#FF0000]/10">
-              <PiggyBank className="w-5 h-5 text-[#FF0000]" />
+            <div className="p-2.5 rounded-xl bg-[#903d00]/10">
+              <PiggyBank className="w-5 h-5 text-[#903d00]" />
             </div>
             <h3 className="text-lg font-semibold">
               {language === "es"
@@ -24,9 +24,9 @@ const PassiveEarnings = () => {
 
           {/* Weekly ROI Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-[#FF0000]/5 border border-[#FF0000]/10">
+            <div className="p-4 rounded-xl bg-[#903d00]/5 border border-[#903d00]/10">
               <div className="flex items-center gap-2 mb-2">
-                <Timer className="w-4 h-4 text-[#FF0000]" />
+                <Timer className="w-4 h-4 text-[#903d00]" />
                 <p className="font-semibold">
                   {language === "es" ? "ROI Semanal" : "Weekly ROI"}
                 </p>
@@ -37,7 +37,7 @@ const PassiveEarnings = () => {
                   ? "Retorno semanal fijo en todos los paquetes activos, pagado automáticamente cada 7 días"
                   : "Fixed weekly return on all active packages, paid automatically every 7 days"}
               </p>
-              <div className="mt-2 p-2 bg-[#FF0000]/10 rounded-lg text-xs text-gray-600">
+              <div className="mt-2 p-2 bg-[#903d00]/10 rounded-lg text-xs text-gray-600">
                 <p className="font-medium">
                   {language === "es"
                     ? "Nota sobre el 0,5% adicional"
@@ -51,9 +51,9 @@ const PassiveEarnings = () => {
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#FF0000]/5 border border-[#FF0000]/10">
+            <div className="p-4 rounded-xl bg-[#903d00]/5 border border-[#903d00]/10">
               <div className="flex items-center gap-2 mb-2">
-                <ArrowUpRight className="w-4 h-4 text-[#FF0000]" />
+                <ArrowUpRight className="w-4 h-4 text-[#903d00]" />
                 <p className="font-semibold">
                   {language === "es" ? "Retorno Máximo" : "Maximum Return"}
                 </p>
@@ -76,7 +76,7 @@ const PassiveEarnings = () => {
             </h4>
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-2 h-2 rounded-full bg-[#FF0000]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#903d00]"></div>
                 <p>
                   {language === "es"
                     ? "Comienza con el paquete de entrada de 50 USDT"
@@ -84,7 +84,7 @@ const PassiveEarnings = () => {
                 </p>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-2 h-2 rounded-full bg-[#FF0000]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#903d00]"></div>
                 <p>
                   {language === "es"
                     ? "Actualiza a 100 USDT después de activar el paquete de 50 USDT"
@@ -92,7 +92,7 @@ const PassiveEarnings = () => {
                 </p>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-2 h-2 rounded-full bg-[#FF0000]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#903d00]"></div>
                 <p>
                   {language === "es"
                     ? "Progresa a 200 USDT después del paquete de 100 USDT"
@@ -100,7 +100,7 @@ const PassiveEarnings = () => {
                 </p>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-2 h-2 rounded-full bg-[#FF0000]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#903d00]"></div>
                 <p>
                   {language === "es"
                     ? "Desbloquea 500 USDT después del paquete de 200 USDT"
@@ -108,7 +108,7 @@ const PassiveEarnings = () => {
                 </p>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-2 h-2 rounded-full bg-[#FF0000]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#903d00]"></div>
                 <p>
                   {language === "es"
                     ? "Accede a 1000 USDT después del paquete de 500 USDT"
@@ -121,7 +121,7 @@ const PassiveEarnings = () => {
           {/* Monthly Fee Info */}
           <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
             <div className="flex items-start gap-2">
-              <AlertCircle className="w-5 h-5 text-[#FF0000] shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-[#903d00] shrink-0 mt-0.5" />
               <div className="space-y-2">
                 <p className="font-medium">
                   {language === "es"

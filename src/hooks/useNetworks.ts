@@ -8,7 +8,7 @@ import { zeroAddress } from 'viem';
 
 export function useNetworks(address: string) {
 	// const { address } = useWallet();
-	const { slowRefresh } = useRefresh()
+	const { slowRefresh, fastRefresh } = useRefresh()
 
 	const [data, setData] = useState<any>();
 
@@ -36,7 +36,6 @@ export function useNetworks(address: string) {
 					if (response.status === 200 && response.data.data)
 						setData(response.data.data)
 
-					console.log(response.data.data)
 				} catch (error) {
 						// console.log('debug fetch allowance error::', error)
 				}
@@ -45,7 +44,7 @@ export function useNetworks(address: string) {
 				fetchUserInfo()
 			}
 
-	}, [slowRefresh, address])
+	}, [fastRefresh, address])
 
 	return {
 		data

@@ -79,7 +79,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-2 mr-4">
             <svg
-              className="w-6 h-6 text-[#FF0000]"
+              className="w-6 h-6 text-[#903d00]"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ const Header = () => {
                 fill="currentColor"
               />
             </svg>
-            <span className="font-bold text-white">CrazyTron</span>
+            <span className="font-bold text-white">CrazyBSC</span>
           </div>
 
           {/* Navigation */}
@@ -102,8 +102,8 @@ const Header = () => {
                   "flex items-center gap-2 px-4 py-2",
                   "text-white/80 hover:text-white",
                   currentPath === item.href
-                    ? "bg-[#FF0000]"
-                    : "hover:bg-[#FF0000]",
+                    ? "bg-[#903d00]"
+                    : "hover:bg-[#903d00]",
                   "transition-colors duration-200",
                 )}
                 onClick={() => handleNavigation(item.href)}
@@ -150,7 +150,7 @@ const Header = () => {
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
-                className="lg:hidden text-white/80 hover:text-white hover:bg-[#FF0000]"
+                className="lg:hidden text-white/80 hover:text-white hover:bg-[#903d00]"
               >
                 <Menu className="w-6 h-6" />
               </Button>
@@ -163,7 +163,7 @@ const Header = () => {
                 <div className="p-4 border-b border-gray-800/50">
                   <div className="flex items-center gap-2">
                     <svg
-                      className="w-6 h-6 text-[#FF0000]"
+                      className="w-6 h-6 text-[#903d00]"
                       viewBox="0 0 100 100"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +173,7 @@ const Header = () => {
                         fill="currentColor"
                       />
                     </svg>
-                    <span className="font-bold text-white">CrazyTron</span>
+                    <span className="font-bold text-white">CrazyBSC</span>
                   </div>
                 </div>
                 <nav className="flex-1 p-4">
@@ -186,8 +186,8 @@ const Header = () => {
                           "w-full justify-start gap-2 px-4 py-6",
                           "text-white/80 hover:text-white",
                           currentPath === item.href
-                            ? "bg-[#FF0000]"
-                            : "hover:bg-[#FF0000]",
+                            ? "bg-[#903d00]"
+                            : "hover:bg-[#903d00]",
                           "transition-colors duration-200",
                         )}
                         onClick={() => handleNavigation(item.href)}

@@ -59,7 +59,7 @@ const Sidebar = ({
         >
           <div className="flex items-center gap-2">
             <svg
-              className="w-6 h-6 text-[#FF0000]"
+              className="w-6 h-6 text-[#903d00]"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const Sidebar = ({
               />
             </svg>
             {!isCollapsed && (
-              <span className="font-bold text-white">CrazyTron</span>
+              <span className="font-bold text-white">CrazyBSC</span>
             )}
           </div>
         </h2>
@@ -83,13 +83,13 @@ const Sidebar = ({
             className={cn(
               "w-full flex items-center gap-4 px-4 py-3.5 transition-all",
               isCollapsed ? "justify-center" : "justify-start",
-              "bg-[#FF0000]/5 hover:bg-[#FF0000]/15 text-white/90 hover:text-white rounded-xl",
-              "border border-[#FF0000]/10 hover:border-[#FF0000]/30",
+              "bg-[#903d00]/5 hover:bg-[#903d00]/15 text-white/90 hover:text-white rounded-xl",
+              "border border-[#903d00]/10 hover:border-[#903d00]/30",
               "group relative overflow-hidden shadow-sm hover:shadow-md",
             )}
           >
             <div className="relative z-10 flex items-center gap-3 w-full">
-              <div className="text-[#FF0000]/80 group-hover:text-[#FF0000] min-w-[24px] transition-colors duration-200">
+              <div className="text-[#903d00]/80 group-hover:text-[#903d00] min-w-[24px] transition-colors duration-200">
                 {item.icon}
               </div>
               {!isCollapsed && (
@@ -98,7 +98,7 @@ const Sidebar = ({
                 </span>
               )}
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FF0000]/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#903d00]/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" />
           </Button>
         ))}
       </nav>

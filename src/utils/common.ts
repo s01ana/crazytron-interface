@@ -21,3 +21,7 @@ export const config = createConfig({
       [bscTestnet.id]: http(),
     },
   })
+
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
