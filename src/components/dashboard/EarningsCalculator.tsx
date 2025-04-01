@@ -398,10 +398,10 @@ const EarningsCalculator = () => {
   };
 
   return (
-    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Calculator className="w-6 h-6 text-[#903d00]" />
+          <Calculator className="w-6 h-6 text-[#EBBA07]" />
           Earnings Calculator
         </CardTitle>
       </CardHeader>
@@ -420,7 +420,7 @@ const EarningsCalculator = () => {
           <div className="space-y-4">
             {/* <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
               <h3 className="font-semibold">Select Your Packages (Max 5)</h3>
-              <div className="text-sm text-gray-500 bg-[#903d00]/5 px-3 py-1 rounded-md border border-[#903d00]/20">
+              <div className="text-sm text-gray-500 bg-[#EBBA07]/5 px-3 py-1 rounded-md border border-[#EBBA07]/20">
                 <span className="font-medium">Note:</span> 10% fee applied to
                 all payouts
               </div>
@@ -434,8 +434,8 @@ const EarningsCalculator = () => {
                   }
                   className={
                     selectedPackages.includes(amount)
-                      ? "bg-[#903d00] text-white"
-                      : "border-[#903d00]/20"
+                      ? "bg-[#EBBA07] text-white"
+                      : "border-[#EBBA07]/20"
                   }
                   onClick={() => togglePackage(amount)}
                   disabled={
@@ -460,14 +460,14 @@ const EarningsCalculator = () => {
                   value={totalMembers}
                   onChange={(e) => setTotalMembers(e.target.value)}
                   placeholder="Enter total members"
-                  className="w-full p-2 text-sm border rounded-md border-[#903d00]/20 focus:outline-none focus:ring-2 focus:ring-[#903d00]/20"
+                  className="w-full p-2 text-sm border rounded-md border-[#EBBA07]/20 focus:outline-none focus:ring-2 focus:ring-[#EBBA07]/20"
                 />
               </div>
               <div className="flex gap-2">
                 <Button
                   variant="outline"
                   onClick={() => autoDistributeMembers("random")}
-                  className="flex-1 sm:flex-none text-[#903d00] border-[#903d00]/20 hover:bg-[#903d00] hover:text-white"
+                  className="flex-1 sm:flex-none text-[#EBBA07] border-[#EBBA07]/20 hover:bg-[#EBBA07] hover:text-white"
                   disabled={selectedPackages.length === 0}
                 >
                   Random
@@ -621,7 +621,7 @@ const EarningsCalculator = () => {
             </div>
 
             <div className="md:col-span-2 mt-2">
-              <div className="flex justify-between items-center p-4 bg-[#903d00]/5 rounded-lg border border-[#903d00]/20">
+              <div className="flex justify-between items-center p-4 bg-[#EBBA07]/5 rounded-lg border border-[#EBBA07]/20">
                 <span className="font-medium text-gray-900">
                   Total Monthly Earnings
                 </span>

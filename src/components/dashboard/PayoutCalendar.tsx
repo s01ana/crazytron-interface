@@ -13,7 +13,7 @@ const PayoutCalendar = () => {
   };
 
   return (
-    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
       <CardHeader>
         <CardTitle className="text-xl font-bold text-white">
           Payout Schedule
@@ -31,10 +31,10 @@ const PayoutCalendar = () => {
             modifiersStyles={{
               payout: {
                 backgroundColor: "rgba(255, 0, 0, 0.1)",
-                color: "#903d00",
+                color: "#EBBA07",
               },
             }}
-            className="rounded-md border border-[#903d00]/20 bg-white text-gray-900"
+            className="rounded-md border border-[#EBBA07]/20 bg-white text-gray-900"
           />
         </div>
       </CardContent>

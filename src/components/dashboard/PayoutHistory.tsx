@@ -110,10 +110,10 @@ const PayoutHistory = () => {
   const {data} = useHistory(address, page, sort, limit);
 
   return (
-    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <History className="w-6 h-6 text-[#903d00]" />
+          <History className="w-6 h-6 text-[#EBBA07]" />
           Payout History
         </CardTitle>
       </CardHeader>
@@ -150,7 +150,7 @@ const PayoutHistory = () => {
                     href={`${TRONSCAN_URL}tx/${payout.hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#903d00] hover:underline text-sm"
+                    className="text-[#EBBA07] hover:underline text-sm"
                   >
                     {addressElipse(payout.hash)}
                   </a>
@@ -206,7 +206,7 @@ const PayoutHistory = () => {
                         href={`${TRONSCAN_URL}tx/${t.hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#903d00] hover:underline"
+                        className="text-[#EBBA07] hover:underline"
                       >
                         {addressElipse(t.hash)}
                       </a>

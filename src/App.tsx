@@ -32,7 +32,7 @@ const SettingsPage = React.lazy(
 
 const LoadingFallback = () => (
   <div className="w-full h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#903d00]" />
+    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#EBBA07]" />
   </div>
 );
 
@@ -86,7 +86,7 @@ createAppKit({
   themeVariables: {
     '--w3m-color-mix': '#000000',
     '--w3m-color-mix-strength': 0,
-    '--w3m-accent': '#903d00',
+    '--w3m-accent': '#EBBA07',
     '--w3m-border-radius-master': '1.5px'
   },
   chainImages: {

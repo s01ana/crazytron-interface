@@ -55,7 +55,7 @@ const NetworkPage = () => {
             <input
               type="text"
               placeholder="Search network members..."
-              className="w-full p-3 pl-10 rounded-lg border border-[#903d00]/20 focus:outline-none focus:ring-2 focus:ring-[#903d00]/20"
+              className="w-full p-3 pl-10 rounded-lg border border-[#EBBA07]/20 focus:outline-none focus:ring-2 focus:ring-[#EBBA07]/20"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -74,11 +74,11 @@ const NetworkPage = () => {
           </div>
           {/* Network Overview */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+            <Card className="bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#EBBA07]/10">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#EBBA07]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -94,11 +94,11 @@ const NetworkPage = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+            <Card className="bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
-                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#EBBA07]/10">
+                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#EBBA07]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -112,11 +112,11 @@ const NetworkPage = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+            <Card className="bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
-                    <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#EBBA07]/10">
+                    <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-[#EBBA07]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -130,11 +130,11 @@ const NetworkPage = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+            <Card className="bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
               <CardContent className="p-3 sm:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#903d00]/10">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#903d00]" />
+                  <div className="p-2 sm:p-3 rounded-full bg-[#EBBA07]/10">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#EBBA07]" />
                   </div>
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500">
@@ -205,8 +205,8 @@ const NetworkPage = () => {
               {selectedMember && (
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-[#903d00]/10">
-                      <Users className="w-6 h-6 text-[#903d00]" />
+                    <div className="p-3 rounded-full bg-[#EBBA07]/10">
+                      <Users className="w-6 h-6 text-[#EBBA07]" />
                     </div>
                     <div>
                       <p className="text-lg font-semibold">

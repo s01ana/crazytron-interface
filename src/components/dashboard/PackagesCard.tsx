@@ -102,10 +102,10 @@ const PackagesCard = ({
   remainingDays = remainingDays > 0 ? remainingDays : 0;
 
   return (
-    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Package className="w-6 h-6 text-[#903d00]" />
+          <Package className="w-6 h-6 text-[#EBBA07]" />
           {t("dashboard.investmentPackages")}
         </CardTitle>
       </CardHeader>
@@ -116,13 +116,13 @@ const PackagesCard = ({
               <span className="text-gray-500">
                 {t("dashboard.passiveUnrealizedProfits")}
               </span>
-              <span className="text-[#903d00]">
+              <span className="text-[#EBBA07]">
                 ${(paidProfit ?? 0)} / ${(totalProfit ?? 0)}
               </span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#903d00]"
+                className="h-full bg-[#EBBA07]"
                 style={{ width: `${(progress ?? 0) * 100}%` }}
               />
             </div>
@@ -141,11 +141,11 @@ const PackagesCard = ({
                     .replace("días", "minutos")}
                 </span>
               </div>
-              <span className="text-[#903d00]">${networkEarnings}</span>
+              <span className="text-[#EBBA07]">${networkEarnings}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#903d00]"
+                className="h-full bg-[#EBBA07]"
                 style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }}
               />
             </div>
@@ -159,7 +159,7 @@ const PackagesCard = ({
                 key={pkg.id}
                 className={`relative p-4 rounded-lg ${
                   userLevels?.includes(i)
-                    ? "border border-[#903d00] bg-[#903d00]/5"
+                    ? "border border-[#EBBA07] bg-[#EBBA07]/5"
                     : "border border-gray-200"
                 }`}
               >
@@ -173,7 +173,7 @@ const PackagesCard = ({
                       </div>
                     </div>
                     {userLevels?.includes(i) && (
-                      <div className="bg-[#903d00] rounded-full p-1 w-5 h-5 flex items-center justify-center">
+                      <div className="bg-[#EBBA07] rounded-full p-1 w-5 h-5 flex items-center justify-center">
                         <svg
                           width="12"
                           height="12"
@@ -197,7 +197,7 @@ const PackagesCard = ({
                       <span className="text-gray-500">
                         {t("dashboard.progressTo300")}
                       </span>
-                      <span className="text-[#903d00]">
+                      <span className="text-[#EBBA07]">
                         {Math.round(
                           ((packs?.[i]?.totalPaid ?? 0) * 100) /
                             (3 * pkg?.amount * 1e18)
@@ -207,7 +207,7 @@ const PackagesCard = ({
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[#903d00]"
+                        className="h-full bg-[#EBBA07]"
                         style={{
                           width: `${Math.round(
                             ((packs?.[i]?.totalPaid ?? 0) * 100) /

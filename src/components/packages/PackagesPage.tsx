@@ -203,14 +203,14 @@ const PackagesPage = () => {
             {packages.map((pkg, i) => (
               <Card
                 key={pkg.amount}
-                className="relative overflow-hidden border-[#903d00]/20 hover:shadow-lg transition-shadow"
+                className="relative overflow-hidden border-[#EBBA07]/20 hover:shadow-lg transition-shadow"
               >
                 {pkg.amount >= 500 && (
                   <div className="absolute top-4 right-4">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
-                          <div className="bg-[#903d00] text-white text-xs px-2 py-1 rounded-full">
+                          <div className="bg-[#EBBA07] text-white text-xs px-2 py-1 rounded-full">
                             {language === "es" ? "Popular" : "Popular"}
                           </div>
                         </TooltipTrigger>
@@ -228,7 +228,7 @@ const PackagesPage = () => {
 
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Package className="w-5 h-5 text-[#903d00]" />
+                    <Package className="w-5 h-5 text-[#EBBA07]" />
                     {pkg.amount} USDT
                   </CardTitle>
                 </CardHeader>
@@ -241,7 +241,7 @@ const PackagesPage = () => {
                           ? "Rendimiento Semanal"
                           : "Weekly Yield"}
                       </span>
-                      <span className="text-[#903d00] font-medium">
+                      <span className="text-[#EBBA07] font-medium">
                         {pkg.weeklyYield}%
                       </span>
                     </div>
@@ -249,7 +249,7 @@ const PackagesPage = () => {
                       <span className="text-gray-500">
                         {language === "es" ? "Retorno Máximo" : "Max Return"}
                       </span>
-                      <span className="text-[#903d00] font-medium">
+                      <span className="text-[#EBBA07] font-medium">
                         {pkg.maxReturn} USDT
                       </span>
                     </div>
@@ -259,7 +259,7 @@ const PackagesPage = () => {
                           ? "Niveles de Red"
                           : "Network Levels"}
                       </span>
-                      <span className="text-[#903d00] font-medium">
+                      <span className="text-[#EBBA07] font-medium">
                         {pkg.levels}
                       </span>
                     </div>
@@ -271,7 +271,7 @@ const PackagesPage = () => {
                         key={index}
                         className="flex items-center gap-2 text-sm"
                       >
-                        <Check className="w-4 h-4 text-[#903d00]" />
+                        <Check className="w-4 h-4 text-[#EBBA07]" />
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -279,7 +279,7 @@ const PackagesPage = () => {
 
                   {activeLevel < i && (
                     <Button
-                      className={`w-full bg-[#903d00] hover:bg-[#903d00]/90 text-white`}
+                      className={`w-full bg-[#EBBA07] hover:bg-[#EBBA07]/90 text-white`}
                       onClick={async () =>
                         // console.log(`Selected ${pkg.amount} USDT package`)
                         await handleBuy(pkg)
@@ -300,7 +300,7 @@ const PackagesPage = () => {
 
                   {activeLevel >= i && (
                     <Button
-                      className={`w-full bg-[#903d00] hover:bg-[#903d00]/90 text-white`}
+                      className={`w-full bg-[#EBBA07] hover:bg-[#EBBA07]/90 text-white`}
                       onClick={async () => {
                         await handleReset(pkg);
                       }}
@@ -337,10 +337,10 @@ const PackagesPage = () => {
           </div>
 
           {/* Monthly Fee Section */}
-          <Card className="border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+          <Card className="border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-[#903d00]" />
+                <AlertCircle className="w-5 h-5 text-[#EBBA07]" />
                 {language === "es" ? "Cuota Mensual" : "Monthly Fee"}
               </CardTitle>
             </CardHeader>
@@ -357,7 +357,7 @@ const PackagesPage = () => {
                 </div>
                 <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#903d00] transition-all duration-500"
+                    className="h-full bg-[#EBBA07] transition-all duration-500"
                     style={{ width: `${((MONTH/60-remainingDays) / MONTH * 60) * 100}%` }}
                   />
                 </div>
@@ -373,7 +373,7 @@ const PackagesPage = () => {
               </div>
 
               <Button
-                className="w-full bg-[#903d00] hover:bg-[#903d00]/90 text-white"
+                className="w-full bg-[#EBBA07] hover:bg-[#EBBA07]/90 text-white"
                 onClick={handlePayFee}
                 disabled={
                   remainingDays !== 0 || pending || data?.packs.length === 0

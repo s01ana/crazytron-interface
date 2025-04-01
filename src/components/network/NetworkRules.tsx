@@ -29,10 +29,10 @@ const NetworkRules = () => {
   ];
 
   return (
-    <Card className="bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow overflow-hidden">
-      <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-[#903d00]/5 to-transparent">
+    <Card className="bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow overflow-hidden">
+      <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-[#EBBA07]/5 to-transparent">
         <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Trophy className="w-6 h-6 text-[#903d00]" />
+          <Trophy className="w-6 h-6 text-[#EBBA07]" />
           {language === "es"
             ? "Sistema de Distribución de Red"
             : "Network Distribution System"}
@@ -41,42 +41,42 @@ const NetworkRules = () => {
       <CardContent className="p-6">
         {/* Distribution Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          <div className="p-4 bg-white rounded-lg border border-[#903d00]/20">
+          <div className="p-4 bg-white rounded-lg border border-[#EBBA07]/20">
             <div className="flex items-center gap-2 mb-2">
-              <Package className="w-5 h-5 text-[#903d00]" />
+              <Package className="w-5 h-5 text-[#EBBA07]" />
               <p className="font-medium">
                 {language === "es"
                   ? "Distribución de Paquete"
                   : "Package Distribution"}
               </p>
             </div>
-            <p className="text-3xl font-bold text-[#903d00]">10%</p>
+            <p className="text-3xl font-bold text-[#EBBA07]">10%</p>
             <p className="text-sm text-gray-500 mt-1">
               {language === "es" ? "Del costo del paquete" : "Of package cost"}
             </p>
           </div>
 
-          <div className="p-4 bg-white rounded-lg border border-[#903d00]/20">
+          <div className="p-4 bg-white rounded-lg border border-[#EBBA07]/20">
             <div className="flex items-center gap-2 mb-2">
-              <Wallet className="w-5 h-5 text-[#903d00]" />
+              <Wallet className="w-5 h-5 text-[#EBBA07]" />
               <p className="font-medium">
                 {language === "es" ? "Cuota Mensual" : "Monthly Fee"}
               </p>
             </div>
-            <p className="text-3xl font-bold text-[#903d00]">70%</p>
+            <p className="text-3xl font-bold text-[#EBBA07]">70%</p>
             <p className="text-sm text-gray-500 mt-1">
               {language === "es" ? "De 50 USDT mensual" : "Of 50 USDT monthly"}
             </p>
           </div>
 
-          <div className="p-4 bg-white rounded-lg border border-[#903d00]/20">
+          <div className="p-4 bg-white rounded-lg border border-[#EBBA07]/20">
             <div className="flex items-center gap-2 mb-2">
-              <Users className="w-5 h-5 text-[#903d00]" />
+              <Users className="w-5 h-5 text-[#EBBA07]" />
               <p className="font-medium">
                 {language === "es" ? "Niveles Máximos" : "Maximum Levels"}
               </p>
             </div>
-            <p className="text-3xl font-bold text-[#903d00]">10</p>
+            <p className="text-3xl font-bold text-[#EBBA07]">10</p>
             <p className="text-sm text-gray-500 mt-1">
               {language === "es" ? "Niveles de profundidad" : "Depth levels"}
             </p>
@@ -103,16 +103,16 @@ const NetworkRules = () => {
               {packageLevels.map((pkg) => (
                 <div
                   key={pkg.amount}
-                  className="flex items-center justify-between p-3 bg-white rounded-lg border border-[#903d00]/20"
+                  className="flex items-center justify-between p-3 bg-white rounded-lg border border-[#EBBA07]/20"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-full bg-[#903d00]/10">
-                      <Package className="w-4 h-4 text-[#903d00]" />
+                    <div className="p-2 rounded-full bg-[#EBBA07]/10">
+                      <Package className="w-4 h-4 text-[#EBBA07]" />
                     </div>
                     <span className="font-medium">{pkg.amount} USDT</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-[#903d00]" />
+                    <Users className="w-4 h-4 text-[#EBBA07]" />
                     <span className="text-sm text-gray-600">
                       {pkg.levels} {language === "es" ? "Niveles" : "Levels"}
                     </span>
@@ -120,7 +120,7 @@ const NetworkRules = () => {
                 </div>
               ))}
             </div>
-            <div className="p-3 bg-[#903d00]/5 border border-[#903d00]/20 rounded-lg text-sm">
+            <div className="p-3 bg-[#EBBA07]/5 border border-[#EBBA07]/20 rounded-lg text-sm">
               <p className="font-medium mb-2">
                 {language === "es"
                   ? "Requisito de Paquete Activo"
@@ -140,19 +140,19 @@ const NetworkRules = () => {
                 {distributionLevels.map((level) => (
                   <div
                     key={level.level}
-                    className="w-[120px] p-3 bg-white rounded-lg border border-[#903d00]/20 flex-shrink-0"
+                    className="w-[120px] p-3 bg-white rounded-lg border border-[#EBBA07]/20 flex-shrink-0"
                   >
                     <p className="text-sm font-medium text-gray-600">
                       Level {level.level}
                     </p>
-                    <p className="text-2xl font-bold text-[#903d00]">
+                    <p className="text-2xl font-bold text-[#EBBA07]">
                       {level.percent}%
                     </p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="p-3 bg-[#903d00]/5 border border-[#903d00]/20 rounded-lg text-sm">
+            <div className="p-3 bg-[#EBBA07]/5 border border-[#EBBA07]/20 rounded-lg text-sm">
               <p className="font-medium mb-2">
                 {language === "es"
                   ? "Distribución de Comisiones"
@@ -168,13 +168,13 @@ const NetworkRules = () => {
         </Tabs>
 
         {/* Fee Information */}
-        <div className="mt-8 p-4 bg-[#903d00]/5 border border-[#903d00]/20 rounded-lg space-y-3">
+        <div className="mt-8 p-4 bg-[#EBBA07]/5 border border-[#EBBA07]/20 rounded-lg space-y-3">
           <p className="font-medium">
             {language === "es" ? "Información de Cuota" : "Fee Information"}
           </p>
           <div className="space-y-2 text-sm text-gray-600">
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#903d00] mt-1.5" />
+              <div className="w-2 h-2 rounded-full bg-[#EBBA07] mt-1.5" />
               <p>
                 {language === "es"
                   ? "Primer mes de cuota (50 USDT) incluido con la compra inicial del paquete"
@@ -182,7 +182,7 @@ const NetworkRules = () => {
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#903d00] mt-1.5" />
+              <div className="w-2 h-2 rounded-full bg-[#EBBA07] mt-1.5" />
               <p>
                 {language === "es"
                   ? "70% de la cuota se distribuye usando el mismo sistema de niveles"

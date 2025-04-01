@@ -59,7 +59,7 @@ const Sidebar = ({
         >
           <div className="flex items-center gap-2">
             <svg
-              className="w-6 h-6 text-[#903d00]"
+              className="w-6 h-6 text-[#EBBA07]"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -83,13 +83,13 @@ const Sidebar = ({
             className={cn(
               "w-full flex items-center gap-4 px-4 py-3.5 transition-all",
               isCollapsed ? "justify-center" : "justify-start",
-              "bg-[#903d00]/5 hover:bg-[#903d00]/15 text-white/90 hover:text-white rounded-xl",
-              "border border-[#903d00]/10 hover:border-[#903d00]/30",
+              "bg-[#EBBA07]/5 hover:bg-[#EBBA07]/15 text-white/90 hover:text-white rounded-xl",
+              "border border-[#EBBA07]/10 hover:border-[#EBBA07]/30",
               "group relative overflow-hidden shadow-sm hover:shadow-md",
             )}
           >
             <div className="relative z-10 flex items-center gap-3 w-full">
-              <div className="text-[#903d00]/80 group-hover:text-[#903d00] min-w-[24px] transition-colors duration-200">
+              <div className="text-[#EBBA07]/80 group-hover:text-[#EBBA07] min-w-[24px] transition-colors duration-200">
                 {item.icon}
               </div>
               {!isCollapsed && (
@@ -98,7 +98,7 @@ const Sidebar = ({
                 </span>
               )}
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#903d00]/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#EBBA07]/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" />
           </Button>
         ))}
       </nav>

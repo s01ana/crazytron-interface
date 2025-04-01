@@ -60,26 +60,26 @@ const NetworkTree: React.FC<NetworkTreeProps> = ({ data, onMemberClick }) => {
       >
         <div
           className={`flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg border transition-all cursor-pointer
-            ${member?.address === address ? "bg-[#903d00]/5 border-[#903d00]" : "border-[#903d00]/20 hover:bg-[#903d00]/5"}
+            ${member?.address === address ? "bg-[#EBBA07]/5 border-[#EBBA07]" : "border-[#EBBA07]/20 hover:bg-[#EBBA07]/5"}
             ${depth === 0 ? "mb-2" : "my-2"}`}
         >
           <div
-            className="p-1.5 hover:bg-[#903d00]/10 rounded-full transition-colors"
+            className="p-1.5 hover:bg-[#EBBA07]/10 rounded-full transition-colors"
             onClick={() => hasChildren && toggleNode(member?.address)}
           >
             {hasChildren &&
               (isExpanded ? (
-                <ChevronDown className="w-4 h-4 text-[#903d00]" />
+                <ChevronDown className="w-4 h-4 text-[#EBBA07]" />
               ) : (
-                <ChevronRight className="w-4 h-4 text-[#903d00]" />
+                <ChevronRight className="w-4 h-4 text-[#EBBA07]" />
               ))}
           </div>
           <div
             className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 flex-1"
             onClick={() => onMemberClick?.(member)}
           >
-            <div className="p-2 rounded-full bg-[#903d00]/10 shrink-0">
-              <Users className="w-4 h-4 text-[#903d00]" />
+            <div className="p-2 rounded-full bg-[#EBBA07]/10 shrink-0">
+              <Users className="w-4 h-4 text-[#EBBA07]" />
             </div>
             <div className="min-w-[100px]">
               <p className="font-medium truncate">{addressElipse(member?.address)}</p>
@@ -92,7 +92,7 @@ const NetworkTree: React.FC<NetworkTreeProps> = ({ data, onMemberClick }) => {
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="border-l-2 border-[#903d00]/10 ml-3 sm:ml-6 pl-3 sm:pl-6">
+          <div className="border-l-2 border-[#EBBA07]/10 ml-3 sm:ml-6 pl-3 sm:pl-6">
             {member?.children.map((child) => renderMember(child, depth + 1))}
           </div>
         )}
@@ -101,7 +101,7 @@ const NetworkTree: React.FC<NetworkTreeProps> = ({ data, onMemberClick }) => {
   };
 
   return (
-    <Card className="w-full bg-white border-[#903d00]/20 shadow-lg hover:shadow-[#903d00]/10 transition-shadow">
+    <Card className="w-full bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
       <CardContent className="p-6">{renderMember(data)}</CardContent>
     </Card>
   );
