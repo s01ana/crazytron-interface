@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/dashboard/Header";
 import { Button } from "@/components/ui/button";
@@ -31,11 +31,13 @@ const PackagesPage = () => {
 
   const { onBuyPack, onResetPack, onPayFee, pending } = useManage();
   const { address } = useAccount();
-  const { data } = usePackages(address);
+
+  const [fast, setFast] = useState(false)
+  const { data } = usePackages(address, fast);
 
   const activeLevel = data ? data.activeLevel : -1
 
-  const userLevels = data?.packs.map((p) => p.level);
+  // const userLevels = data?.packs.map((p) => p.level);
 
   // let remainingDays = 30 - Math.floor((Date.now()/1000 - userLastPaymentTime) / (24 * 3600))
   let remainingDays = Math.floor(

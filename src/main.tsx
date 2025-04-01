@@ -11,7 +11,7 @@ const basename = import.meta.env.BASE_URL;
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <LanguageProvider>
-      <BrowserRouter basename={basename}>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </LanguageProvider>

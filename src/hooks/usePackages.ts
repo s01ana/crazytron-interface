@@ -5,8 +5,8 @@ import axios from 'axios';
 import { Address, parseAbi, zeroAddress } from 'viem';
 import { publicClient } from '@/utils/viem';
 
-export function usePackages(address: string) {
-	const { slowRefresh } = useRefresh()
+export function usePackages(address: string, isFast: boolean) {
+	const { slowRefresh, fastRefresh } = useRefresh()
 
 	const [data, setData] = useState<any>();
 

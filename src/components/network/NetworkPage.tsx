@@ -240,8 +240,8 @@ const NetworkPage = () => {
                     </div>
                   </div>
 
-                  {selectedMember.children &&
-                    selectedMember.children.length > 0 && (
+                  {selectedMember?.children &&
+                    selectedMember?.children.length > 0 && (
                       <div className="space-y-2">
                         <h4 className="font-semibold">
                           {language === "es"
