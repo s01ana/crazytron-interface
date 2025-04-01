@@ -10,7 +10,7 @@ export const WEEK = 60*7 // 60*60*24*7
 export const MONTH = 60*30 //60*60*24*30
 
 export const TRONSCAN_URL = 'https://testnet.bscscan.com/'
-export const MAIN_URL = "https://crazytron-interface.vercel.app/"
+export const MAIN_URL = "https://crazybsc-interface.vercel.app/"
 
 export const BACKEND_URL = 'https://crazy.isg.fi/'
 
