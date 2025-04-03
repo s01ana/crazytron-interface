@@ -3,6 +3,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Network, Timer } from "lucide-react";
 import { MONTH } from "@/config/constants";
+import BigNumber from "bignumber.js";
 
 interface NetworkStatusCardProps {
   networkLevel: number;
@@ -60,7 +61,7 @@ const NetworkStatusCard = ({
               <span className="text-gray-500">
                 {t("dashboard.networkIncome")}
               </span>
-              <span className="text-[#EBBA07]">${totalNetworkPaid/1e18}</span>
+              <span className="text-[#EBBA07]">${new BigNumber(totalNetworkPaid).div(1e18).toNumber().toLocaleString()}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div className="h-full bg-[#EBBA07]" style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }} />
