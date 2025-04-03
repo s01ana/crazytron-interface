@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { History } from "lucide-react";
-import { useHistory } from "@/hooks/useHistory";
+import { useHistory, useHistoryLength } from "@/hooks/useHistory";
 import { useAccount } from "wagmi";
 import { TRONSCAN_URL } from "@/config/constants";
 import { addressElipse } from "@/utils/common";
@@ -104,10 +104,24 @@ const getTimeDifferenceFromNow = (timestamp) => {
 const PayoutHistory = () => {
   // const { t } = useLanguage();
   const {address} = useAccount()
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const [sort, setSort] = useState(true)
   const [limit, setLimit] = useState(10)
-  const {data} = useHistory(address, page, sort, limit);
+  const {data} = useHistory(address, page-1, sort, limit);
+  const {data: length} = useHistoryLength(address)
+
+  const [totalPages, setTotalpages] = useState(0)
+
+  const goToPage = (p) => {
+    if (p < 1 || p > totalPages) return;
+    setPage(p);
+  };
+
+  useEffect(() => {
+    if (length) {
+      setTotalpages(Math.floor(length.length / 10) + 1)
+    }
+  }, [length])
 
   return (
     <Card className="w-full bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
@@ -266,6 +280,28 @@ const PayoutHistory = () => {
               </tbody>
             </table>
           </div>
+
+          {length?.length > 10 && <div className="flex justify-center items-center mt-4">
+            <div className="flex justify-between items-center w-[300px]">
+              <button
+                onClick={() => goToPage(page - 1)}
+                disabled={page === 1}
+                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <div className="text-sm">
+                Page <strong>{page}</strong> of <strong>{totalPages}</strong>
+              </div>
+              <button
+                onClick={() => goToPage(page + 1)}
+                disabled={page === totalPages}
+                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          </div>}
         </div>
       </CardContent>
     </Card>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Package, History } from "lucide-react";
@@ -92,6 +92,21 @@ const PackagesCard = ({
   const totalProfit = packs?.reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3 / 1e18, 0);
   const paidProfit = packs?.reduce((a, b) => a + new BigNumber(b.totalPaid).div(1e18).toNumber(), 0);
 
+  const averageProfitByHour = (totalProfit ?? 0) / 140 / 60 / 3
+  
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (totalProfit) {
+      setCount(paidProfit)
+    }
+    const interval = setInterval(() => {
+        setCount(prevCount => prevCount + averageProfitByHour);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [averageProfitByHour]);
+
   let progress = paidProfit / totalProfit;
   progress = isNaN(progress) ? 0 : progress
 
@@ -117,7 +132,7 @@ const PackagesCard = ({
                 {t("dashboard.passiveUnrealizedProfits")}
               </span>
               <span className="text-[#EBBA07]">
-                ${(paidProfit ?? 0)} / ${(totalProfit ?? 0)}
+                ${(count.toLocaleString() ?? 0)} / ${(totalProfit ?? 0)}
               </span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">

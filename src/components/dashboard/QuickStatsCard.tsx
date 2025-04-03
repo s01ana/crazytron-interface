@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BigNumber from "bignumber.js"
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -11,18 +11,37 @@ import {
 } from "lucide-react";
 import { useNetworks } from "@/hooks/useNetworks";
 import { useAccount } from "wagmi";
+import { INITIAL_AMOUNTS } from "@/config/constants";
 
 interface QuickStatsCardProps {
   totalEarnings?: number;
   activeReferrals?: number;
 }
 
-const QuickStatsCard = () => {
+const QuickStatsCard = ({packs}: {packs: any}) => {
   const { t } = useLanguage();
 
   const {address} = useAccount()
 
   const { data } = useNetworks(address)
+
+  const totalProfit = packs?.reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3 / 1e18, 0);
+  const paidProfit = packs?.reduce((a, b) => a + new BigNumber(b.totalPaid).div(1e18).toNumber(), 0);
+  const averageProfitByHour = (totalProfit ?? 0) / 140 / 60 / 3
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (data) {
+      setCount(new BigNumber(data?.totalPackPaid ?? 0).plus(data?.totalNetworkPaid ?? 0).div(1e18).toNumber())
+    }
+    const interval = setInterval(() => {
+        setCount(prevCount => prevCount + averageProfitByHour);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [averageProfitByHour]);
+
 
   return (
     <Card className="w-full bg-white shadow-lg hover:shadow-[#EBBA07]/10 transition-all duration-300 border-[#EBBA07]/20">
@@ -39,7 +58,8 @@ const QuickStatsCard = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">
-                {new BigNumber(data?.totalPackPaid ?? 0).plus(data?.totalNetworkPaid ?? 0).div(1e18).toFixed()} USDT
+                {/* {new BigNumber(data?.totalPackPaid ?? 0).plus(data?.totalNetworkPaid ?? 0).div(1e18).toFixed()} USDT */}
+                {count.toLocaleString()} USDT
               </p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.totalEarnings")}

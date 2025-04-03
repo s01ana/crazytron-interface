@@ -63,7 +63,9 @@ const DashboardGrid = React.memo(
         <div className="w-full max-w-[1312px] mx-auto space-y-4 md:space-y-6">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Suspense fallback={<LoadingFallback />}>
-              <QuickStatsCard />
+              <QuickStatsCard 
+                packs={data?.packs}
+              />
             </Suspense>
           </ErrorBoundary>
 
