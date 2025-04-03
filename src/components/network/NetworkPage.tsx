@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useNetworks } from "@/hooks/useNetworks";
 import { addressElipse } from "@/utils/common";
 import { useAccount } from "wagmi";
+import BigNumber from "bignumber.js";
 
 interface NetworkMember {
   address: string;
@@ -124,7 +125,7 @@ const NetworkPage = () => {
                         ? "Ganancias de Red"
                         : "Network Earnings"}
                     </p>
-                    <p className="text-lg sm:text-2xl font-bold">${(data?.totalNetworkPaid ?? 0) / 1e18}</p>
+                    <p className="text-lg sm:text-2xl font-bold">${new BigNumber(data?.totalNetworkPaid ?? 0).div(1e18).toNumber().toLocaleString()}</p>
                   </div>
                 </div>
               </CardContent>
