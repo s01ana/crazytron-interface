@@ -99,13 +99,13 @@ const DashboardGrid = React.memo(
                 </Suspense>
               </ErrorBoundary>
 
-              {!(data?.packs || data?.packs?.length || data?.packs?.length > 0) && (
+              {/* {!(data?.packs || data?.packs?.length || data?.packs?.length > 0) && (
                 <ErrorBoundary FallbackComponent={ErrorFallback}>
                   <Suspense fallback={<LoadingFallback />}>
                     <BuyPackageSection onPackageSelect={onPackageSelect} />
                   </Suspense>
                 </ErrorBoundary>
-              )}
+              )} */}
             </div>
           </div>
 
