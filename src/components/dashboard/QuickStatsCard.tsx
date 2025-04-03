@@ -73,7 +73,7 @@ const QuickStatsCard = ({packs}: {packs: any}) => {
               <PiggyBank className="h-6 w-6 text-[#EBBA07]" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{(data?.totalNetworkPaid ?? 0) / 1e18} USDT</p>
+              <p className="text-2xl font-bold text-gray-900">{new BigNumber(data?.totalNetworkPaid ?? 0).div(1e18).toNumber().toLocaleString()} USDT</p>
               <p className="text-sm text-gray-500">
                 {t("dashboard.totalPassiveIncome")}
               </p>
