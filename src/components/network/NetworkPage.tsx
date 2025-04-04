@@ -125,7 +125,7 @@ const NetworkPage = () => {
                         ? "Ganancias de Red"
                         : "Network Earnings"}
                     </p>
-                    <p className="text-lg sm:text-2xl font-bold">${new BigNumber(data?.totalNetworkPaid ?? 0).div(1e18).toNumber().toLocaleString()}</p>
+                    <p className="text-lg sm:text-2xl font-bold">${new BigNumber(data?.totalNetworkPaid ?? 0).div(1e18).toNumber().toFixed(2)}</p>
                   </div>
                 </div>
               </CardContent>

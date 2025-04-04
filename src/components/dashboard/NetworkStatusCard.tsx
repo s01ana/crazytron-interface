@@ -61,7 +61,7 @@ const NetworkStatusCard = ({
               <span className="text-gray-500">
                 {t("dashboard.networkIncome")}
               </span>
-              <span className="text-[#EBBA07]">${new BigNumber(totalNetworkPaid).div(1e18).toNumber().toLocaleString()}</span>
+              <span className="text-[#EBBA07]">${new BigNumber(totalNetworkPaid).div(1e18).toNumber().toFixed(2)}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div className="h-full bg-[#EBBA07]" style={{ width: `${((MONTH/60 - remainingDays) / MONTH * 60) * 100}%` }} />

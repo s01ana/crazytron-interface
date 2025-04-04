@@ -5,6 +5,7 @@ import { Package, History } from "lucide-react";
 import { useNetworkProfit } from "@/hooks/useNetworkProfit";
 import { INITIAL_AMOUNTS, MONTH } from "@/config/constants";
 import BigNumber from "bignumber.js";
+import { formatNumber } from "@/utils/common";
 
 interface Transaction {
   hash: string;
@@ -107,7 +108,7 @@ const PackagesCard = ({
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, [averageProfitByHour]);
 
-  let progress = paidProfit / totalProfit;
+  let progress = count / totalProfit;
   progress = isNaN(progress) ? 0 : progress
 
   let remainingDays = Math.floor(
@@ -132,7 +133,7 @@ const PackagesCard = ({
                 {t("dashboard.passiveUnrealizedProfits")}
               </span>
               <span className="text-[#EBBA07]">
-                ${(count.toLocaleString() ?? 0)} / ${(totalProfit ?? 0)}
+                ${(count.toFixed(2) ?? 0)} / ${(totalProfit ?? 0)}
               </span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -181,7 +182,7 @@ const PackagesCard = ({
                 <div className="space-y-1">
                   <div className="flex justify-between items-start">
                     <div>
-                      <div className="text-xl font-bold">{pkg.amount} USDT</div>
+                      <div className="text-xl font-bold">{formatNumber(pkg.amount)} USDT</div>
                       <div className="text-sm text-gray-500">
                         {pkg.levels}{" "}
                         {t("dashboard.packageFeatures.networkLevels")}

@@ -25,3 +25,11 @@ export const config = createConfig({
 export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function formatNumber(n) {
+    if (n < 1000) return n.toString();
+    if (n < 1_000_000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    if (n < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
+    return (n / 1_000_000_000_000).toFixed(1).replace(/\.0$/, '') + 'T';
+}
