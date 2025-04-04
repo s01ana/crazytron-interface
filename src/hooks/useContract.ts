@@ -96,7 +96,7 @@ export function useManage() {
             functionName: 'approve',
             args: [
               CRAZYTRON_ADDRESS as Address,
-              BigInt(amount)
+              BigInt(amount * 1e18)
             ],
           } as unknown as WriteContractParameters)
           await sleep(3000)
