@@ -71,7 +71,7 @@ export function useManage() {
     }
   };
 
-	const onResetPack = async (level: number, amount: number) => {
+	const onResetPack = async (id: number, amount: number) => {
     if (walletClient) {
       try {
         setPending(true);
@@ -107,7 +107,7 @@ export function useManage() {
           address: CRAZYTRON_ADDRESS,
           functionName: 'resetPack',
           args: [
-            level
+            id
           ],
         } as unknown as WriteContractParameters)
 

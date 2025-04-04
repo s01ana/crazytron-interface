@@ -133,8 +133,8 @@ const PackagesPage = () => {
       );
   };
 
-  const handleReset = async (pkg: PackageInfo) => {
-    const result = await onResetPack(packages.indexOf(pkg), pkg.amount);
+  const handleReset = async (pkg: PackageInfo, id: any) => {
+    const result = await onResetPack(id, pkg.amount);
     if (result.result)
       toast.success(
         <div className="flex gap-1">
@@ -302,7 +302,7 @@ const PackagesPage = () => {
                     <Button
                       className={`w-full bg-[#EBBA07] hover:bg-[#EBBA07]/90 text-white`}
                       onClick={async () => {
-                        await handleReset(pkg);
+                        await handleReset(pkg, data?.packs[i]?.id);
                       }}
                       disabled={
                         data?.packs[i].totalPaid < pkg.maxReturn * 1e18 ||
