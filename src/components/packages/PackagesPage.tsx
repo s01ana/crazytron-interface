@@ -306,6 +306,7 @@ const PackagesPage = () => {
                       }}
                       disabled={
                         data?.packs[i].totalPaid < pkg.maxReturn * 1e18 ||
+                        (i > 0 && data?.packs[i-1]?.totalPaid >= packages[i-1].maxReturn * 1e18) ||
                         pending
                       }
                     >

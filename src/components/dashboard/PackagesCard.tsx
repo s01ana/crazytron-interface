@@ -175,7 +175,9 @@ const PackagesCard = ({
                 key={pkg.id}
                 className={`relative p-4 rounded-lg ${
                   userLevels?.includes(i)
-                    ? "border border-[#EBBA07] bg-[#EBBA07]/5"
+                    ? (packs?.[i]?.totalPaid / 1e18 < pkg.amount * 3 ? 
+                      "border border-[#EBBA07] bg-[#EBBA07]/5"
+                      : "border border-[#eb2207] bg-[#eb2207]/5")
                     : "border border-gray-200"
                 }`}
               >
@@ -188,7 +190,7 @@ const PackagesCard = ({
                         {t("dashboard.packageFeatures.networkLevels")}
                       </div>
                     </div>
-                    {userLevels?.includes(i) && (
+                    {userLevels?.includes(i) && packs?.[i]?.totalPaid / 1e18 < pkg.amount * 3 && (
                       <div className="bg-[#EBBA07] rounded-full p-1 w-5 h-5 flex items-center justify-center">
                         <svg
                           width="12"
@@ -206,6 +208,25 @@ const PackagesCard = ({
                         </svg>
                       </div>
                     )}
+                    {userLevels?.includes(i) && packs?.[i]?.totalPaid / 1e18 >= pkg.amount * 3 && (
+                      <div className="bg-[#eb2207] p-1 flex rounded-md items-center justify-between">
+                        {/* <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 15 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                            fill="white"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                          ></path>
+                        </svg> */}
+                        <p className="text-white text-[11px]">Consumed</p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-1 mt-4">
@@ -213,7 +234,7 @@ const PackagesCard = ({
                       <span className="text-gray-500">
                         {t("dashboard.progressTo300")}
                       </span>
-                      <span className="text-[#EBBA07]">
+                      <span className={packs?.[i]?.totalPaid / 1e18 >= pkg.amount * 3 ? "text-[#EB2207]" : "text-[#EBBA07]"}>
                         {Math.round(
                           ((packs?.[i]?.totalPaid ?? 0) * 100) /
                             (3 * pkg?.amount * 1e18)
@@ -223,7 +244,7 @@ const PackagesCard = ({
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[#EBBA07]"
+                        className={packs?.[i]?.totalPaid / 1e18 >= pkg.amount * 3 ? "h-full bg-[#EB2207]" : "h-full bg-[#EBBA07]"}
                         style={{
                           width: `${Math.round(
                             ((packs?.[i]?.totalPaid ?? 0) * 100) /
