@@ -1,3 +1,4 @@
+import { useNetworks } from "@/hooks/useNetworks";
 import { useUser } from "@/hooks/useUser";
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -58,6 +59,7 @@ const DashboardGrid = React.memo(
   }: DashboardGridProps) => {
     const {address} = useAccount()
     const {data} = useUser(address)
+    const { data: userPaidData } = useNetworks(address)
     return (
       <div className="w-full min-h-screen p-2 sm:p-4 md:p-6">
         <div className="w-full max-w-[1312px] mx-auto space-y-4 md:space-y-6">
@@ -65,6 +67,7 @@ const DashboardGrid = React.memo(
             <Suspense fallback={<LoadingFallback />}>
               <QuickStatsCard 
                 packs={data?.packs}
+                data={userPaidData}
               />
             </Suspense>
           </ErrorBoundary>
@@ -76,6 +79,7 @@ const DashboardGrid = React.memo(
                   <PackagesCard
                     lastPaymentTime={data?.lastPaymentTime}
                     packs={data?.packs}
+                    data={userPaidData}
                   />
                 </Suspense>
               </ErrorBoundary>

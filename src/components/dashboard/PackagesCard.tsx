@@ -80,9 +80,11 @@ const allPackages: PackageInfo[] = [
 const PackagesCard = ({
   lastPaymentTime,
   packs,
+  data
 }: {
   lastPaymentTime: number;
   packs: any;
+  data: any
 }) => {
   const { t } = useLanguage();
   // const { userPacks, userLastPaymentTime } = useUserInfo()
@@ -157,7 +159,7 @@ const PackagesCard = ({
                     .replace("días", "minutos")}
                 </span>
               </div>
-              <span className="text-[#EBBA07]">${networkEarnings}</span>
+              <span className="text-[#EBBA07]">${new BigNumber(data?.totalNetworkPaid ?? 0).div(1e18).toNumber().toFixed(2)}</span>
             </div>
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
