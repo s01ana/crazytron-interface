@@ -32,8 +32,7 @@ const PackagesPage = () => {
   const { onBuyPack, onResetPack, onPayFee, pending } = useManage();
   const { address } = useAccount();
 
-  const [fast, setFast] = useState(false)
-  const { data } = usePackages(address, fast);
+  const { data } = usePackages(address);
 
   const activeLevel = data ? data.activeLevel : -1
 

@@ -15,6 +15,9 @@ import { useNetworks } from "@/hooks/useNetworks";
 import { addressElipse } from "@/utils/common";
 import { useAccount } from "wagmi";
 import BigNumber from "bignumber.js";
+import { usePackages } from "@/hooks/usePackages";
+import { useUser } from "@/hooks/useUser";
+import { INITIAL_AMOUNTS, NETWORK_LEVEL } from "@/config/constants";
 
 interface NetworkMember {
   address: string;
@@ -23,6 +26,7 @@ interface NetworkMember {
   networkSize: number;
   networkLevel: number;
   networkPackSize: number;
+  packs: any;
   children?: NetworkMember[];
 }
 
@@ -34,7 +38,7 @@ const NetworkPage = () => {
 
   const { address } = useAccount();
 
-  const {data} = useNetworks(address)
+  const {data} = useUser(address)
 
   const handleMemberClick = (member: NetworkMember) => {
     setSelectedMember(member);
@@ -106,7 +110,7 @@ const NetworkPage = () => {
                       {language === "es" ? "Nivel de Red" : "Network Level"}
                     </p>
                     <p className="text-lg sm:text-2xl font-bold">
-                      {data?.networkLevel ?? 0}
+                    {NETWORK_LEVEL[data?.packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length - 1] ?? 0}
                     </p>
                   </div>
                 </div>
@@ -214,7 +218,7 @@ const NetworkPage = () => {
                         {addressElipse(selectedMember.address)}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {formatLevel(selectedMember.networkLevel)}
+                        {formatLevel(NETWORK_LEVEL[selectedMember?.packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length - 1] ?? 0)}
                       </p>
                     </div>
                   </div>
@@ -227,7 +231,7 @@ const NetworkPage = () => {
                           : "Active Package"}
                       </p>
                       <p className="text-lg font-semibold">
-                        {selectedMember.networkPackSize} USDT
+                        {INITIAL_AMOUNTS[selectedMember?.packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length - 1] / 1e18} USDT
                       </p>
                     </div>
                     <div className="p-4 rounded-lg bg-gray-50">

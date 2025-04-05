@@ -21,11 +21,11 @@ interface QuickStatsCardProps {
 const QuickStatsCard = ({packs, data}: {packs: any, data: any}) => {
   const { t } = useLanguage();
 
-  const {address} = useAccount()
+  // const {address} = useAccount()
 
   // const { data } = useNetworks(address)
 
-  const totalProfit = packs?.reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3 / 1e18, 0);
+  const totalProfit = packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 ).reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3 / 1e18, 0);
   const paidProfit = packs?.reduce((a, b) => a + new BigNumber(b.totalPaid).div(1e18).toNumber(), 0);
   const averageProfitByHour = (totalProfit ?? 0) / 140 / 60 / 3
 

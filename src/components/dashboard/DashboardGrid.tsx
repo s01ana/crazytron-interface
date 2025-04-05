@@ -92,6 +92,7 @@ const DashboardGrid = React.memo(
                     networkLevel={data?.networkLevel}
                     userLastPaymentTime={data?.lastPaymentTime}
                     totalNetworkPaid={data?.totalNetworkPaid}
+                    packs={data?.packs}
                     onRenew={onRenewNetwork}
                   />
                 </Suspense>

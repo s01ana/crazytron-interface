@@ -15,6 +15,7 @@ export const MAIN_URL = "https://crazybsc-interface.vercel.app/"
 export const BACKEND_URL = 'https://crazy.isg.fi/'
 
 export const INITIAL_AMOUNTS = [50e18, 100e18, 200e18, 500e18, 1000e18];
+export const NETWORK_LEVEL = [4, 5, 6, 8, 10]
 
 export const PUBLIC_NODES: Record<number, string[] | readonly string[]> = {
   97: [

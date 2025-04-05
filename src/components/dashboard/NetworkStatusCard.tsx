@@ -2,13 +2,14 @@ import React from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Network, Timer } from "lucide-react";
-import { MONTH } from "@/config/constants";
+import { INITIAL_AMOUNTS, MONTH, NETWORK_LEVEL } from "@/config/constants";
 import BigNumber from "bignumber.js";
 
 interface NetworkStatusCardProps {
   networkLevel: number;
   userLastPaymentTime: number; // in seconds
   totalNetworkPaid: number;
+  packs: any;
   onRenew?: () => void;
 }
 
@@ -16,6 +17,7 @@ const NetworkStatusCard = ({
   networkLevel,
   userLastPaymentTime = 0,
   totalNetworkPaid = 0,
+  packs,
   onRenew = () => console.log("Renewal clicked"),
 }: NetworkStatusCardProps) => {
   const { t, language } = useLanguage();
@@ -23,6 +25,8 @@ const NetworkStatusCard = ({
   let remainingDays = Math.floor((MONTH - Date.now()/1000 + userLastPaymentTime) / 60)
   
   remainingDays = remainingDays > 0 ? remainingDays : 0
+
+  const activePacks = packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length
 
   return (
     <Card className="w-full h-[200px] bg-white border-[#EBBA07]/20 shadow-lg hover:shadow-[#EBBA07]/10 transition-shadow">
@@ -40,7 +44,7 @@ const NetworkStatusCard = ({
                 {t("dashboard.currentPosition")}
               </p>
               <p className="text-[#EBBA07] text-2xl font-bold mt-1">
-                {language === "es" ? "Nivel" : "Level"} {networkLevel}
+                {language === "es" ? "Nivel" : "Level"} {activePacks ? NETWORK_LEVEL[activePacks - 1] : 0}
               </p>
             </div>
             <div className="text-right">

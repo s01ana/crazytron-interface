@@ -1,3 +1,4 @@
+import { INITIAL_AMOUNTS } from "@/config/constants"
 import BigNumber from "bignumber.js"
 import { bscTestnet } from "viem/chains"
 import { createConfig, http } from "wagmi"
@@ -32,4 +33,8 @@ export function formatNumber(n) {
     if (n < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
     if (n < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
     return (n / 1_000_000_000_000).toFixed(1).replace(/\.0$/, '') + 'T';
+}
+
+export function getNetworkPackSize(n) {
+    return INITIAL_AMOUNTS.slice(0, n).reduce((a, b) => a + b, 0) / 1e18
 }
