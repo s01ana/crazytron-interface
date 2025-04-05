@@ -310,9 +310,13 @@ const PackagesPage = () => {
                         pending
                       }
                     >
-                      {language === "es"
+                      {i === 0 || data?.packs[i-1]?.totalPaid < packages[i-1].maxReturn * 1e18 ?
+                      (language === "es"
                         ? `Paquete de reinicio`
-                        : `Reset Package`}
+                        : `Reset Package`) : 
+                        (language === "es"
+                          ? `Desbloquear en ${pkg.requiredAmount} USDT`
+                          : `Unlock at ${pkg.requiredAmount} USDT`)}
                     </Button>
                   )}
 

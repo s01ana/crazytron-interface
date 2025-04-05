@@ -90,8 +90,8 @@ const PackagesCard = ({
   const { networkEarnings } = useNetworkProfit();
 
   const userLevels = packs?.map((p) => p.level);
-  const totalProfit = packs?.reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3 / 1e18, 0);
-  const paidProfit = packs?.reduce((a, b) => a + new BigNumber(b.totalPaid).div(1e18).toNumber(), 0);
+  const totalProfit = packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 ).reduce((a, b) => a + INITIAL_AMOUNTS[b.level] * 3 / 1e18, 0);
+  const paidProfit = packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 ).reduce((a, b) => a + new BigNumber(b.totalPaid).div(1e18).toNumber(), 0);
 
   const averageProfitByHour = (totalProfit ?? 0) / 140 / 60 / 3
   
@@ -175,7 +175,7 @@ const PackagesCard = ({
                 key={pkg.id}
                 className={`relative p-4 rounded-lg ${
                   userLevels?.includes(i)
-                    ? (packs?.[i]?.totalPaid / 1e18 < pkg.amount * 3 ? 
+                    ? (packs?.[i]?.totalPaid < INITIAL_AMOUNTS[i] * 3 ? 
                       "border border-[#EBBA07] bg-[#EBBA07]/5"
                       : "border border-[#eb2207] bg-[#eb2207]/5")
                     : "border border-gray-200"
@@ -190,7 +190,7 @@ const PackagesCard = ({
                         {t("dashboard.packageFeatures.networkLevels")}
                       </div>
                     </div>
-                    {userLevels?.includes(i) && packs?.[i]?.totalPaid / 1e18 < pkg.amount * 3 && (
+                    {userLevels?.includes(i) && packs?.[i]?.totalPaid < INITIAL_AMOUNTS[i] * 3 && (
                       <div className="bg-[#EBBA07] rounded-full p-1 w-5 h-5 flex items-center justify-center">
                         <svg
                           width="12"
@@ -208,7 +208,7 @@ const PackagesCard = ({
                         </svg>
                       </div>
                     )}
-                    {userLevels?.includes(i) && packs?.[i]?.totalPaid / 1e18 >= pkg.amount * 3 && (
+                    {userLevels?.includes(i) && packs?.[i]?.totalPaid >= INITIAL_AMOUNTS[i] * 3 && (
                       <div className="bg-[#eb2207] p-1 flex rounded-md items-center justify-between">
                         {/* <svg
                           width="12"
@@ -234,7 +234,7 @@ const PackagesCard = ({
                       <span className="text-gray-500">
                         {t("dashboard.progressTo300")}
                       </span>
-                      <span className={packs?.[i]?.totalPaid / 1e18 >= pkg.amount * 3 ? "text-[#EB2207]" : "text-[#EBBA07]"}>
+                      <span className={packs?.[i]?.totalPaid >= INITIAL_AMOUNTS[i] * 3 ? "text-[#EB2207]" : "text-[#EBBA07]"}>
                         {Math.round(
                           ((packs?.[i]?.totalPaid ?? 0) * 100) /
                             (3 * pkg?.amount * 1e18)
@@ -244,7 +244,7 @@ const PackagesCard = ({
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className={packs?.[i]?.totalPaid / 1e18 >= pkg.amount * 3 ? "h-full bg-[#EB2207]" : "h-full bg-[#EBBA07]"}
+                        className={packs?.[i]?.totalPaid >= INITIAL_AMOUNTS[i] * 3 ? "h-full bg-[#EB2207]" : "h-full bg-[#EBBA07]"}
                         style={{
                           width: `${Math.round(
                             ((packs?.[i]?.totalPaid ?? 0) * 100) /
