@@ -380,7 +380,7 @@ const PackagesPage = () => {
                 className="w-full bg-[#EBBA07] hover:bg-[#EBBA07]/90 text-white"
                 onClick={handlePayFee}
                 disabled={
-                  remainingDays !== 0 || pending || data?.packs.length === 0
+                  remainingDays !== 0 || pending || data?.packs.length === 0 || (activeLevel >=0 && data?.packs[0]?.totalPaid >= packages[0].maxReturn * 1e18) || activeLevel < 0
                 }
               >
                 {language === "es"
