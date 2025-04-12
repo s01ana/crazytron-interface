@@ -4,7 +4,7 @@ import { Users, ChevronRight, ChevronDown } from "lucide-react";
 import { addressElipse, getNetworkPackSize } from "@/utils/common";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useAccount } from "wagmi";
-import { INITIAL_AMOUNTS, NETWORK_LEVEL } from "@/config/constants";
+import { INITIAL_AMOUNTS, MONTH, NETWORK_LEVEL } from "@/config/constants";
 
 interface NetworkMember {
   address: string;
@@ -12,6 +12,7 @@ interface NetworkMember {
   totalNetworkPaid: number;
   networkLevel: number;
   networkPackSize: number;
+  lastPaymentTime: number;
   packs: any;
   children?: NetworkMember[];
 }
@@ -87,6 +88,12 @@ const NetworkTree: React.FC<NetworkTreeProps> = ({ data, onMemberClick }) => {
               <p className="font-medium truncate">{addressElipse(member?.address)}</p>
               <p className="text-sm text-gray-500">{language === "es" ? "Nivel" : "Level"} {NETWORK_LEVEL[member?.packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length - 1] ?? 0}</p>
             </div>
+            {member?.lastPaymentTime + MONTH > Date.now() / 1000 && <div className="text-sm text-green-500 shrink-0">
+              {language === "es" ? "Cuota Mensual Pagada" : "Paid Monthly Fee"}
+            </div>}
+            {member?.lastPaymentTime + MONTH <= Date.now() / 1000 && <div className="text-sm text-gray-800 shrink-0">
+              {language === "es" ? "No Pagada" : "Not Paid"}
+            </div>}
             <div className="ml-auto text-sm text-gray-500 shrink-0">
               {getNetworkPackSize(member?.packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length)} USDT
             </div>

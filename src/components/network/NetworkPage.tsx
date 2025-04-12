@@ -17,7 +17,7 @@ import { useAccount } from "wagmi";
 import BigNumber from "bignumber.js";
 import { usePackages } from "@/hooks/usePackages";
 import { useUser } from "@/hooks/useUser";
-import { INITIAL_AMOUNTS, NETWORK_LEVEL } from "@/config/constants";
+import { INITIAL_AMOUNTS, MONTH, NETWORK_LEVEL } from "@/config/constants";
 
 interface NetworkMember {
   address: string;
@@ -26,6 +26,7 @@ interface NetworkMember {
   networkSize: number;
   networkLevel: number;
   networkPackSize: number;
+  lastPaymentTime: number;
   packs: any;
   children?: NetworkMember[];
 }
@@ -221,6 +222,16 @@ const NetworkPage = () => {
                         {formatLevel(NETWORK_LEVEL[selectedMember?.packs?.filter((p, i) => p.totalPaid < INITIAL_AMOUNTS[i] * 3 )?.length - 1] ?? 0)}
                       </p>
                     </div>
+                    {selectedMember?.lastPaymentTime + MONTH > Date.now() / 1000 && (
+                      <div className="text-sm text-green-500">
+                        {language === "es" ? "Cuota Mensual Pagada" : "Paid Monthly Fee"}
+                      </div>
+                    )}
+                    {selectedMember?.lastPaymentTime + MONTH <= Date.now() / 1000 && (
+                      <div className="text-sm text-gray-800">
+                        {language === "es" ? "No Pagada" : "Not Paid"}
+                      </div>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">

@@ -384,8 +384,8 @@ const PackagesPage = () => {
                 }
               >
                 {language === "es"
-                  ? "Pagar Cuota (50 USDT)"
-                  : "Pay Fee (50 USDT)"}
+                  ? "Pagar Cuota (20 USDT)"
+                  : "Pay Fee (20 USDT)"}
               </Button>
             </CardContent>
           </Card>

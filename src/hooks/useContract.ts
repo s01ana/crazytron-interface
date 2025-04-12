@@ -143,7 +143,7 @@ export function useManage() {
 
         const nAllowance = new BigNumber(resAllowance.toString()).div(1e18);
 
-        if (nAllowance.isLessThan(50)) {
+        if (nAllowance.isLessThan(20)) {
           await walletClient.writeContract({
             abi: erc20Abi,
             address: USDT_ADDRESS,
@@ -151,7 +151,7 @@ export function useManage() {
             functionName: 'approve',
             args: [
               CRAZYTRON_ADDRESS as Address,
-              50000000000000000000n
+              20000000000000000000n
             ],
           } as unknown as WriteContractParameters)
           await sleep(3000)
