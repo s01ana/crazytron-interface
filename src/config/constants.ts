@@ -2,7 +2,7 @@ import { Chain, zeroAddress } from "viem"
 import { bscTestnet } from "viem/chains"
 
 export const USDT_ADDRESS = "0xc5557CB7761186937E7Cc3d0D492d8399476f662"
-export const CRAZYTRON_ADDRESS = "0xeb560812b41fadEA7E4E145A5cDf4E80720F7F5d"
+export const CRAZYTRON_ADDRESS = "0x065349d566777C7eAFdaB757c0078338b5AEd8c3"
 export const ZERO_ADDRESS = zeroAddress
 export const MASTER_ADDRESS = "0x32b63337baac9144a55a9fFe4d052C4fe4746955"
 
