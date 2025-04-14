@@ -371,8 +371,8 @@ const PackagesPage = () => {
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <p>
                   {language === "es"
-                    ? "Se requiere una cuota mensual de 50 USDT para mantener las ganancias de red. El primer mes está incluido con la compra del paquete."
-                    : "A monthly fee of 50 USDT is required to maintain network earnings. First month is included with package purchase."}
+                    ? "Se requiere una cuota mensual de 20 USDT para mantener las ganancias de red. El primer mes está incluido con la compra del paquete."
+                    : "A monthly fee of 20 USDT is required to maintain network earnings. First month is included with package purchase."}
                 </p>
               </div>
 

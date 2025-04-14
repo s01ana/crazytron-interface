@@ -177,8 +177,8 @@ const NetworkRules = () => {
               <div className="w-2 h-2 rounded-full bg-[#EBBA07] mt-1.5" />
               <p>
                 {language === "es"
-                  ? "Primer mes de cuota (50 USDT) incluido con la compra inicial del paquete"
-                  : "First month fee (50 USDT) included with initial package purchase"}
+                  ? "Primer mes de cuota (20 USDT) incluido con la compra inicial del paquete"
+                  : "First month fee (20 USDT) included with initial package purchase"}
               </p>
             </div>
             <div className="flex items-start gap-2">

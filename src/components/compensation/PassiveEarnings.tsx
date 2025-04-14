@@ -131,13 +131,13 @@ const PassiveEarnings = () => {
                 <ul className="text-sm text-gray-500 space-y-1 list-disc pl-4">
                   <li>
                     {language === "es"
-                      ? "Cuota del primer mes (50 USDT) incluida con la compra inicial del paquete"
-                      : "First month fee (50 USDT) included with initial package purchase"}
+                      ? "Cuota del primer mes (20 USDT) incluida con la compra inicial del paquete"
+                      : "First month fee (20 USDT) included with initial package purchase"}
                   </li>
                   <li>
                     {language === "es"
-                      ? "Después de 30 días, se requiere una cuota mensual de 50 USDT para mantener las ganancias de red"
-                      : "After 30 days, a monthly fee of 50 USDT is required to maintain network earnings"}
+                      ? "Después de 30 días, se requiere una cuota mensual de 20 USDT para mantener las ganancias de red"
+                      : "After 30 days, a monthly fee of 20 USDT is required to maintain network earnings"}
                   </li>
                   <li>
                     {language === "es"
